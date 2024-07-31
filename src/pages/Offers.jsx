@@ -1,5 +1,6 @@
 import React from 'react';
 import OffersComp from '../components/OffersComp';
+import Booking from '../components/Booking';
 
 const Offers = () => {
   const offersData = [
@@ -65,7 +66,8 @@ const Offers = () => {
 
   return (
     <div>
-      <OffersComp />
+      {/* <OffersComp /> */}
+      <Booking/>
       <div className="px-4 py-8">
         <h2 className="text-3xl font-bold text-center mb-8 text-purple-800">Exclusive Offers</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
