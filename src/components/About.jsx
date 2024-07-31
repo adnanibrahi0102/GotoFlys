@@ -41,23 +41,23 @@ const About = () => {
         <div className="container mx-auto text-center">
           <div className="flex flex-wrap justify-center space-y-8 md:space-y-0 md:space-x-8">
             <div className="w-full md:w-1/4 p-4">
-              <h2 className="text-4xl font-bold text-purple-800"><CountUp end={255} duration={3} /></h2>
+              <h2 className="text-4xl font-bold text-purple-800"><CountUp end={255} duration={5} /></h2>
               <p className="text-lg">Clients</p>
             </div>
             <div className="w-full md:w-1/4 p-4">
-              <h2 className="text-4xl font-bold text-purple-800"><CountUp end={1176} duration={3} /></h2>
+              <h2 className="text-4xl font-bold text-purple-800"><CountUp end={1176} duration={5} /></h2>
               <p className="text-lg">Projects</p>
             </div>
             <div className="w-full md:w-1/4 p-4">
-              <h2 className="text-4xl font-bold text-purple-800"><CountUp end={39} duration={3} /></h2>
+              <h2 className="text-4xl font-bold text-purple-800"><CountUp end={39} duration={5} /></h2>
               <p className="text-lg">Countries</p>
             </div>
             <div className="w-full md:w-1/4 p-4">
-              <h2 className="text-4xl font-bold text-purple-800"><CountUp end={127} duration={3} /></h2>
+              <h2 className="text-4xl font-bold text-purple-800"><CountUp end={127} duration={5} /></h2>
               <p className="text-lg">Coffees</p>
             </div>
             <div className="w-full md:w-1/4 p-4">
-              <h2 className="text-4xl font-bold text-purple-800"><CountUp end={1257} duration={3} /></h2>
+              <h2 className="text-4xl font-bold text-purple-800"><CountUp end={1257} duration={5} /></h2>
               <p className="text-lg">Bookings</p>
             </div>
           </div>
