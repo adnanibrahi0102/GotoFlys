@@ -8,6 +8,8 @@ import Layout from './Layout.jsx'
 import AboutUs from './pages/AboutUs.jsx'
 import Offers from './pages/Offers.jsx'
 import ContactUs from './pages/ContactUs.jsx'
+import TermsConditions from './pages/TermsConditions.jsx'
+import Blog from './pages/Blog.jsx'
 const router = createBrowserRouter([
   {
     path:"/",
@@ -27,11 +29,11 @@ const router = createBrowserRouter([
       },
       {
         path:"blogs",
-        element:<h1>Latest Blog Posts</h1>
+        element:<Blog/>
       },
       {
         path:"termsConditions",
-        element:<h1>Terms & Conditions</h1>
+        element:<TermsConditions/>
       },
       {
         path:"contact",
