@@ -34,7 +34,8 @@ const Navigation = () => {
         <nav className={` ${isScrolled ? 'bg-purple-900 opacity-70' : 'bg-purple-950 opacity-90'}  py-12 px-8 flex items-center justify-evenly gap-4 `}>
           <div className={`flex items-center transition-transform duration-400 ${isScrolled ? 'translate-y-0' : '-translate-y-1.5'}`}>
             <Link to="/" className="flex items-center text-white text-2xl font-extrabold ">
-              <img src="/src/assets/logo (1).webp" alt="Logo" className="mr-3 inline-block align-middle" />
+            <img src="/assets/logo (1).webp" alt="Logo" className="mr-3 inline-block align-middle" />
+
               <span className='mt-5 text-3xl uppercase'>GotoFlys</span>
             </Link>
           </div>

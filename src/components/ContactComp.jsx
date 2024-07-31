@@ -123,7 +123,7 @@ const ContactForm = () => {
           </div>
           <div className="w-full md:w-1/2 text-center md:text-left">
             <img
-              src="/src/assets/logo (1).webp"
+              src="/assets/logo (1).webp" 
               alt="Logo"
               className="mr-3 inline-block align-middle"
             />
