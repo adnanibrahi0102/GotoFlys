@@ -1,6 +1,13 @@
 import React from 'react';
-import OffersComp from '../components/OffersComp';
-import Booking from '../components/Booking';
+
+import {
+  FaPlane,
+  FaHotel,
+  FaCar,
+  FaGlobe,
+  FaShip,
+  FaSwimmer,
+} from "react-icons/fa";
 
 const Offers = () => {
   const offersData = [
@@ -66,8 +73,168 @@ const Offers = () => {
 
   return (
     <div>
-      {/* <OffersComp /> */}
-      <Booking/>
+      <div className="  bg-gradient-to-r from-orange-500 to-purple-600 py-6">
+        <div className="container mx-auto px-4">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <form >
+              <div className="flex flex-wrap justify-around mb-4 rounded-t-lg">
+                <button
+                  type="button"
+                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                >
+                  <FaPlane />
+                  <span className="hidden sm:inline">Flights</span>
+                </button>
+                <button
+                  type="button"
+                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                >
+                  <FaHotel />
+                  <span className="hidden sm:inline">Hotels</span>
+                </button>
+                <button
+                  type="button"
+                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                >
+                  <FaCar />
+                  <span className="hidden sm:inline">Car Rentals</span>
+                </button>
+                <button
+                  type="button"
+                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                >
+                  <FaGlobe />
+                  <span className="hidden sm:inline">Trips</span>
+                </button>
+                <button
+                  type="button"
+                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                >
+                  <FaShip />
+                  <span className="hidden sm:inline">Cruises</span>
+                </button>
+                <button
+                  type="button"
+                  className="text-white flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent bg-orange-500 transition-colors duration-300"
+                >
+                  <FaSwimmer />
+                  <span className="hidden sm:inline">Activities</span>
+                </button>
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+                <div>
+                  <label
+                    htmlFor="origin"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
+                    Origin From
+                  </label>
+                  <input
+                    type="text"
+                    id="origin"
+                    placeholder="Origin From"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="destination"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
+                    Destination To
+                  </label>
+                  <input
+                    type="text"
+                    id="destination"
+                    placeholder="Destination To"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="departure"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
+                    Departure
+                  </label>
+                  <input
+                    type="date"
+                    id="departure"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="return"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
+                    Return
+                  </label>
+                  <input
+                    type="date"
+                    id="return"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="adults"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
+                    Adults
+                  </label>
+                  <select
+                    id="adults"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
+                  >
+                    <option value="">Adults</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                  </select>
+                </div>
+                <div>
+                  <label
+                    htmlFor="children"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
+                    Children
+                  </label>
+                  <select
+                    id="children"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
+                  >
+                    <option value="">Children</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+                <button
+                  type="submit"
+                  className="col-span-1 md:col-span-2 lg:col-span-6 inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
+                >
+                  Search
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-8 justify-center items-center p-4">
+        <h1 className="mt-8 text-3xl sm:text-5xl font-bold text-center">
+          Call Answered in 5 Seconds
+        </h1>
+        <h4 className="text-xl sm:text-3xl font-mono text-center">
+          Unpublished offers and great discounts when you book on-call.
+        </h4>
+        <button onClick={handleClick} className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">
+          855-393-1260
+        </button>
+      </div>
+     
       <div className="px-4 py-8">
         <h2 className="text-3xl font-bold text-center mb-8 text-purple-800">Exclusive Offers</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
