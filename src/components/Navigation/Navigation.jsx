@@ -3,6 +3,7 @@ import { FaBars } from 'react-icons/fa';
 import { IoIosClose } from 'react-icons/io';
 import TopBar from './TopBar'; 
 import { Link } from 'react-router-dom';
+import TopBanner from '../TopCallBanner';
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,6 +26,9 @@ const Navigation = () => {
     <>
       <div className="hidden md:block">
         <TopBar />
+      </div>
+      <div>
+        <TopBanner/>
       </div>
       <header
         className={`sticky top-0 left-0 right-0 z-50 transition-all duration-400 ease-in-out  ${
