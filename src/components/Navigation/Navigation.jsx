@@ -66,7 +66,7 @@ const Navigation = () => {
                   <li><Link to="/About" className="text-white text-3xl font-normal hover:underline">about us</Link></li>
                   <li><Link to="/offers" className="text-white text-3xl font-normal hover:underline">offers</Link></li>
                   <li><Link to="/blogs"className="text-white text-3xl font-normal hover:underline">blog</Link></li>
-                  <li><Link to="/termsConditions "className="text-white text-3xl font-normal hover:underline">blog</Link></li>
+                  <li><Link to="/termsConditions "className="text-white text-3xl font-normal hover:underline">Terms & Conditions</Link></li>
                   <li><Link to="/contact" className="text-white text-3xl font-normal hover:underline">contact</Link></li>
                 </ul>
               </div>
