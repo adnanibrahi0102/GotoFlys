@@ -51,7 +51,7 @@ const Booking = () => {
 
   return (
     <div>
-      <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6">
+      <div className=" hidden md:block bg-gradient-to-r from-orange-500 to-purple-600 py-6">
         <div className="container mx-auto px-4">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <form onSubmit={handleSubmit}>

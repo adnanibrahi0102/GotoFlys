@@ -7,12 +7,18 @@ import Testimonials from '../components/Testimonials'
 import Trending from '../components/Trending'
 import Destinations from '../components/Destinations'
 
+import FlightBookingForm from '../components/FlightBookingForm'
+import FlightCard from '../components/FlightCard'
 
 const Home = () => {
   return (
     <div>
   
       <Carasoul/>
+      <div className="block md:hidden">
+        <FlightBookingForm />
+        <FlightCard/>
+      </div>
       <Booking/>
       <CTA/>
       <Offers/>
