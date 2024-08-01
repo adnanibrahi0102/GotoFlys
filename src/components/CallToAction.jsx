@@ -20,7 +20,7 @@ const CallToActionBanner = () => {
         </motion.div>
         <div className="ml-3">
           <p className=" text-base font-semibold text-orange-800">Call & Get Unpublished Flight Deals!</p>
-          <p className="font-semibold text-base text-orange-800">{phoneNumber}</p>
+          <p className="font-bold text-lg text-black">{phoneNumber}</p>
         </div>
       </div>
     </a>
