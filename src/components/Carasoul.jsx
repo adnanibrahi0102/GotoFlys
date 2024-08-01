@@ -27,7 +27,7 @@ const Carasoul = () => {
       speed={2000}
       loop={true}
       autoplay={{ delay: 5000 }}
-      onSlideChange={({ activeIndex }) => setActiveIndex(activeIndex)} // Set active slide index
+      onSlideChange={({ activeIndex }) => setActiveIndex(activeIndex)} 
       onSwiper={(swiper) => console.log(swiper)}
     >
       {images.map((image, index) => (
