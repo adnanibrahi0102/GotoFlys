@@ -1,5 +1,4 @@
 import React from "react";
-
 import {
   FaPlane,
   FaHotel,
@@ -79,10 +78,6 @@ const Offers = () => {
     },
   ];
 
-  const handleClick = () => {
-    window.open("tel:8553931260");
-  };
-
   return (
     <div>
       <div
@@ -100,12 +95,12 @@ const Offers = () => {
           <p className="text-lg md:text-xl">
             Explore our exclusive offers and deals for a memorable stay!
           </p>
-          <button
-            onClick={handleClick}
+          <a
+            href="tel:8553931260"
             className=" mt-4 col-span-1 md:col-span-2 lg:col-span-6 inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
           >
             855-393-1260
-          </button>
+          </a>
         </div>
       </div>
       <div className="  bg-gradient-to-r from-orange-500 to-purple-600 py-6">
@@ -168,7 +163,7 @@ const Offers = () => {
                     type="text"
                     id="origin"
                     placeholder="Origin From"
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
+                    className="mt-1 p-2 border border-gray-300 rounded-md w-full text-center"
                   />
                 </div>
                 <div>
@@ -176,141 +171,82 @@ const Offers = () => {
                     htmlFor="destination"
                     className="block text-sm font-medium text-gray-700 text-center"
                   >
-                    Destination To
+                    Destination
                   </label>
                   <input
                     type="text"
                     id="destination"
-                    placeholder="Destination To"
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
+                    placeholder="Destination"
+                    className="mt-1 p-2 border border-gray-300 rounded-md w-full text-center"
                   />
                 </div>
                 <div>
                   <label
-                    htmlFor="departure"
+                    htmlFor="departure-date"
                     className="block text-sm font-medium text-gray-700 text-center"
                   >
-                    Departure
+                    Departure Date
                   </label>
                   <input
                     type="date"
-                    id="departure"
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
+                    id="departure-date"
+                    className="mt-1 p-2 border border-gray-300 rounded-md w-full text-center"
                   />
                 </div>
                 <div>
                   <label
-                    htmlFor="return"
+                    htmlFor="return-date"
                     className="block text-sm font-medium text-gray-700 text-center"
                   >
-                    Return
+                    Return Date
                   </label>
                   <input
                     type="date"
-                    id="return"
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
+                    id="return-date"
+                    className="mt-1 p-2 border border-gray-300 rounded-md w-full text-center"
                   />
                 </div>
-                <div>
-                  <label
-                    htmlFor="adults"
-                    className="block text-sm font-medium text-gray-700 text-center"
+                <div className="flex items-center justify-center mt-4">
+                  <button
+                    type="submit"
+                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-orange-500 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
                   >
-                    Adults
-                  </label>
-                  <select
-                    id="adults"
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
-                  >
-                    <option value="">Adults</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select>
+                    Search
+                  </button>
                 </div>
-                <div>
-                  <label
-                    htmlFor="children"
-                    className="block text-sm font-medium text-gray-700 text-center"
-                  >
-                    Children
-                  </label>
-                  <select
-                    id="children"
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
-                  >
-                    <option value="">Children</option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  className="col-span-1 md:col-span-2 lg:col-span-6 inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
-                >
-                  Search
-                </button>
               </div>
             </form>
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-8 justify-center items-center p-4">
-        <h1 className="mt-8 text-3xl sm:text-5xl font-bold text-center">
-          Call Answered in 5 Seconds
-        </h1>
-        <h4 className="text-xl sm:text-3xl font-mono text-center">
-          Unpublished offers and great discounts when you book on-call.
-        </h4>
-        <button
-          onClick={handleClick}
-          className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
-        >
-          855-393-1260
-        </button>
-      </div>
-
-      <div className="px-4 py-8">
-        <h2 className="text-3xl font-bold text-center mb-8 text-purple-800">
-          Exclusive Offers
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {offersData.map((offer) => (
-            <div
-              key={offer.id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl"
-            >
-              <img
-                src={offer.image}
-                alt={offer.title}
-                className="w-full h-48 object-cover transition-opacity duration-300 hover:opacity-80"
-              />
-              <div className="p-6">
-                <h3 className="text-2xl font-bold mb-2 text-purple-800">
-                  {offer.title}
-                </h3>
-                <p className="text-xl font-semibold mb-4">{offer.price}</p>
-                <p className="text-gray-600 mb-4">{offer.description}</p>
-                <div className="flex items-center justify-between mt-4">
-                  <button
-                    onClick={handleClick}
-                    className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white py-2 px-4 rounded-md shadow-md hover:shadow-lg transition-shadow duration-300"
-                  >
-                    Book Now
-                  </button>
-                  <div className="text-center">
-                    <p className="text-lg font-semibold">{offer.reviews}</p>
-                    <p className="text-lg font-semibold">{offer.rating}</p>
+      <section className="py-12">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-8 text-center">Special Offers</h2>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {offersData.map((offer) => (
+              <div
+                key={offer.id}
+                className="bg-white shadow-lg rounded-lg overflow-hidden"
+              >
+                <img
+                  src={offer.image}
+                  alt={offer.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">{offer.title}</h3>
+                  <p className="text-gray-600 text-sm mb-4">{offer.price}</p>
+                  <p className="text-gray-700 mb-4">{offer.description}</p>
+                  <div className="flex justify-between text-sm text-gray-600">
+                    <span>{offer.reviews}</span>
+                    <span>{offer.rating}</span>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

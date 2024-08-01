@@ -34,14 +34,14 @@ const Footer = () => {
               <li>
                 <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Blog Post 2" className="w-12 h-12 object-cover inline-block mr-2" />
                 <div className="inline-block align-middle">
-                  <Link to="/" className="text-sm hover:underline">New destinations for you</Link>
+                  <Link to="/blogs" className="text-sm hover:underline">Exploring Hidden Gems Around the World</Link>
                   <p className="text-xs text-orange-400">Feb 25, 2024</p>
                 </div>
               </li>
               <li>
                 <img src="https://images.unsplash.com/photo-1523568129082-a8d6c095638e?q=80&w=1388&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Blog Post 3" className="w-12 h-12 object-cover inline-block mr-2" />
                 <div className="inline-block align-middle">
-                  <Link to="/" className="text-sm hover:underline">Travel with us this year</Link>
+                  <Link to="/blogs" className="text-sm hover:underline">Essential Packing Tips for Your Next Adventure</Link>
                   <p className="text-xs text-orange-400">Jan 29, 2024</p>
                 </div>
               </li>

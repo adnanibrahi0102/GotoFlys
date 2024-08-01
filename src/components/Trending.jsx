@@ -1,6 +1,6 @@
 import React from "react";
 
-// Sample data for hotels
+
 const hotelData = [
   {
     name: "Grand Hotel",

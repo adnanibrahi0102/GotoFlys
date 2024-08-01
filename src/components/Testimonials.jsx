@@ -71,10 +71,10 @@ const Testimonials = () => {
         loop
         breakpoints={{
           640: {
-            slidesPerView: 1, // 1 slide per view on mobile
+            slidesPerView: 1, 
           },
           768: {
-            slidesPerView: 2, // 2 slides per view on tablets and above
+            slidesPerView: 2, 
           },
         }}
         className="mySwiper"

@@ -12,19 +12,15 @@ const FlightCard = ({ airlineLogo, route, dateRange, price }) => (
     <div className="text-right">
       <div className="text-gray-500 text-xs">From</div>
       <div className="text-sm font-bold text-orange-600">{price}</div>
-      <button 
-        onClick={handleClick} 
+      <a 
+        href="tel:8553931260" 
         className="px-2 py-1 mt-1 text-xs bg-orange-500 text-white rounded-md"
       >
         Book Now
-      </button>
+      </a>
     </div>
   </div>
 );
-
-const handleClick = () => {
-  window.open('tel:8553931260');
-};
 
 const TopFlightDestinations = () => {
   const flights = [
@@ -37,7 +33,6 @@ const TopFlightDestinations = () => {
     { airlineLogo: '/assets/indigo.png', route: 'Chicago - Dallas', dateRange: 'August 01 - August 04', price: '$138' },
     { airlineLogo: '/assets/airindia.png', route: 'Boston - Toronto', dateRange: 'August 02 - August 04', price: '$145' },
     { airlineLogo: '/assets/qatar.png', route: 'Miami - San Juan', dateRange: 'August 02 - August 04', price: '$155' },
-   
   ];
 
   return (

@@ -9,9 +9,7 @@ import {
 } from "react-icons/fa";
 import Card from "./Card";
 
-
 const Booking = () => {
- 
 
   const cards = [
     {
@@ -40,18 +38,13 @@ const Booking = () => {
     },
   ];
 
-  const handleClick = () => {
-    window.open('tel:8553931260');
-
-  }
   const handleSubmit = (event) => {
     event.preventDefault();
-    
   };
 
   return (
     <div>
-      <div className=" hidden md:block bg-gradient-to-r from-orange-500 to-purple-600 py-6">
+      <div className="hidden md:block bg-gradient-to-r from-orange-500 to-purple-600 py-6">
         <div className="container mx-auto px-4">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <form onSubmit={handleSubmit}>
@@ -208,24 +201,30 @@ const Booking = () => {
         <h4 className="text-xl sm:text-3xl font-mono text-center">
           Unpublished offers and great discounts when you book on-call.
         </h4>
-        <button onClick={handleClick} className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">
+        <a
+          href="tel:8553931260"
+          className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
+        >
           855-393-1260
-        </button>
+        </a>
       </div>
-      <div className="flex flex-wrap justify-around gap-6">
-        {cards.map((card, index) => (
-          <div key={index} className="w-full md:w-1/3 lg:w-1/4">
+      <div className="flex flex-col justify-center items-center p-4">
+        <h2 className="text-3xl sm:text-5xl font-bold text-center mt-4 mb-8">
+          Exclusive offers
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {cards.map((card, index) => (
             <Card
+              key={index}
               image={card.image}
               date={card.date}
               title={card.title}
               price={card.price}
               rating={card.rating}
             />
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-      
     </div>
   );
 };

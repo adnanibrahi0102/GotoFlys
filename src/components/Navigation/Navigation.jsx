@@ -26,7 +26,7 @@ const Navigation = () => {
       <div className="hidden md:block">
         <TopBar />
       </div>
-
+      
       <header
         className={`sticky top-0 left-0 right-0 z-50 transition-all duration-400 ease-in-out  ${
           isScrolled ? 'h-[120px] translate-y-[-10px]' : 'h-[143px]'
@@ -58,12 +58,12 @@ const Navigation = () => {
               <FaBars size={24} />
             </button>
             {isMenuOpen && (
-              <div className="fixed inset-0 bg-gradient-to-r from-yellow-400 to-purple-500 flex flex-col items-center justify-center z-40 opacity-95">
+              <div className="fixed inset-0 bg-gradient-to-r from-yellow-400 to-purple-500 flex flex-col items-center justify-center z-40 opacity-95 h-screen">
                 <div className="absolute top-4 right-4 cursor-pointer" onClick={toggleMenu}>
-                  <IoIosClose size={24} className="text-white" />
+                  <IoIosClose size={30} className="text-black" />
                 </div>
                 <div className="text-center mb-8">
-                  <a href="#" className="text-2xl text-black font-bold ">GotoFlys</a>
+                  <a href="#" className="text-2xl text-black font-bold font-pacifico">GotoFlys</a>
                 </div>
                 <div className="w-full px-6 mb-4">
                   <div className="flex items-center border border-black rounded-md px-2 py-1">
@@ -71,13 +71,13 @@ const Navigation = () => {
                     <input type="text" placeholder="Search..." className="bg-transparent text-black outline-none ml-2 placeholder-black" />
                   </div>
                 </div>
-                <ul className="space-y-4 text-black font-semibold">
-                  <li><Link to="/" className="text-3xl font-normal hover:underline">home</Link></li>
-                  <li><Link to="/About" className="text-3xl font-normal hover:underline">about us</Link></li>
-                  <li><Link to="/offers" className="text-3xl font-normal hover:underline">offers</Link></li>
-                  <li><Link to="/blogs" className="text-3xl font-normal hover:underline">blog</Link></li>
-                  <li><Link to="/termsConditions" className="text-3xl font-normal hover:underline">Terms & Conditions</Link></li>
-                  <li><Link to="/contact" className="text-3xl font-normal hover:underline">contact</Link></li>
+                <ul className="space-y-4 text-black font-bold font-pacifico">
+                  <li><Link to="/" onClick={toggleMenu} className="text-3xl font-normal hover:underline">home</Link></li>
+                  <li><Link to="/About" onClick={toggleMenu} className="text-3xl font-normal hover:underline">about us</Link></li>
+                  <li><Link to="/offers" onClick={toggleMenu} className="text-3xl font-normal hover:underline">offers</Link></li>
+                  <li><Link to="/blogs" onClick={toggleMenu} className="text-3xl font-normal hover:underline">blog</Link></li>
+                  <li><Link to="/termsConditions" onClick={toggleMenu} className="text-3xl font-normal hover:underline">Terms & Conditions</Link></li>
+                  <li><Link to="/contact" onClick={toggleMenu} className="text-3xl font-normal hover:underline">contact</Link></li>
                 </ul>
               </div>
             )}

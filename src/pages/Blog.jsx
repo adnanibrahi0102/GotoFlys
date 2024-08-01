@@ -1,10 +1,6 @@
 import React from "react";
 
 const Blog = () => {
-  const handleClick = () => {
-    window.open('tel:8553931260');
-  };
-
   const blogPosts = [
     {
       title: "Exploring Hidden Gems Around the World",
@@ -38,12 +34,12 @@ const Blog = () => {
         <div className="absolute inset-0 bg-black opacity-40"></div>
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center">
           <h1 className="text-8xl font-bold mb-4 uppercase">The Blog</h1>
-          <button
-            onClick={handleClick}
+          <a
+            href="tel:8553931260"
             className="col-span-1 md:col-span-2 lg:col-span-6 inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
           >
             855-393-1260
-          </button>
+          </a>
         </div>
       </div>
       <div className="px-4 py-8">

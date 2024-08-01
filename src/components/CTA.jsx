@@ -7,15 +7,10 @@ import "swiper/css/navigation";
 const CTA = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
-  
-  const handleClick = () => {
-    window.open('tel:8553931260');
-
-  }
   const ctaItems = [
     {
       title: 'Maldives deluxe package',
-      text: `Escape to paradise with the Maldives Deluxe Package, a luxurious retreat where azure waters meet powdery white sands. Stay in private overwater villas, waking up to the soothing sounds of the ocean. Enjoy breathtaking sunsets from your deck and explore vibrant coral reefs through snorkeling or diving adventures. Indulge in world-class dining with ocean views and pamper yourself with rejuvenating spa treatments. Every moment in the Maldives is a blend of opulence and natural beauty, promising an unforgettable escape from the ordinary. `,
+      text: `Escape to paradise with the Maldives Deluxe Package, a luxurious retreat where azure waters meet powdery white sands. Stay in private overwater villas, waking up to the soothing sounds of the ocean. Enjoy breathtaking sunsets from your deck and explore vibrant coral reefs through snorkeling or diving adventures. Indulge in world-class dining with ocean views and pamper yourself with rejuvenating spa treatments. Every moment in the Maldives is a blend of opulence and natural beauty, promising an unforgettable escape from the ordinary.`,
       phoneNumber: '855-393-1260',
     },
     {
@@ -58,9 +53,12 @@ const CTA = () => {
               </div>
               <p className="mb-2 text-sm sm:text-base md:text-lg p-4">{item.text}</p>
               <div className="flex justify-center mt-4">
-                <button onClick={handleClick} className="inline-flex items-center justify-center h-12 px-6 font-medium text-white bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] rounded-lg border border-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">
+                <a
+                  href={`tel:${item.phoneNumber}`}
+                  className="inline-flex items-center justify-center h-12 px-6 font-medium text-white bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] rounded-lg border border-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
+                >
                   Book Now...
-                </button>
+                </a>
               </div>
             </SwiperSlide>
           ))}
