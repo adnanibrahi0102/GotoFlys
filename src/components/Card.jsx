@@ -3,7 +3,7 @@ import { FaStar } from 'react-icons/fa';
 
 const Card = ({ image, date, title, price, rating }) => {
   return (
-    <div className="relative bg-white rounded-lg shadow-lg overflow-hidden w-full md:w-80 lg:w-96 h-96 md:h-80 lg:h-96">
+    <div className="relative bg-white rounded-lg shadow-lg overflow-hidden w-full md:w-80 lg:w-96 h-96 md:h-80 lg:h-96 ">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${image})` }}

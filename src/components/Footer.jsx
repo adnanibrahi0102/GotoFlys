@@ -27,7 +27,7 @@ const Footer = () => {
               <li>
                 <img src="https://plus.unsplash.com/premium_photo-1677343210638-5d3ce6ddbf85?q=80&w=1376&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Blog Post 1" className="w-12 h-12 object-cover inline-block mr-2" />
                 <div className="inline-block align-middle">
-                  <Link to="/" className="text-sm hover:underline">Travel with us this year</Link>
+                  <Link to="/blogs" className="text-sm hover:underline">Travel with us this year</Link>
                   <p className="text-xs text-orange-400">March 19, 2024</p>
                 </div>
               </li>
