@@ -14,7 +14,9 @@ import CallToActionBanner from "../components/CallToAction";
 const Home = () => {
   return (
     <div>
-      <Carasoul />
+      <div className="hidden md:block"> // Hide on mobile devices
+        <Carasoul />
+      </div>
       <div className="block md:hidden">
         <FlightBookingForm />
         <FlightCard />

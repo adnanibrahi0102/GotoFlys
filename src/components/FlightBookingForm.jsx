@@ -34,9 +34,9 @@ const FlightBookingForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-orange-500 to-purple-600">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-orange-500 to-purple-600 m-4 rounded-md">
       <div className="bg-transparent p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h2 className="text-center text-2xl font-bold text-white mb-6">Flight Booking</h2>
+        <h2 className="text-center text-3xl font-thin text-white mb-6">Flight Booking</h2>
         <form ref={form} onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-white font-semibold mb-2">Departure</label>
