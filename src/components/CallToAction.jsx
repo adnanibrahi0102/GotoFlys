@@ -19,7 +19,7 @@ const CallToActionBanner = () => {
           <MdOutlineWifiCalling3 className="w-5 h-5 text-white" />
         </motion.div>
         <div className="ml-3">
-          <p className=" text-base font-semibold text-orange-800">Call & Get Unpublished Flight Deals!</p>
+          <p className=" text-sm font-normal text-black">Call & Get Unpublished Flight Deals!</p>
           <p className="font-bold text-lg text-black">{phoneNumber}</p>
         </div>
       </div>
