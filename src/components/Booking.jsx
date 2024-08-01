@@ -205,8 +205,8 @@ const Booking = () => {
         <h4 className="text-xl sm:text-3xl font-mono text-center">
           Unpublished offers and great discounts when you book on-call.
         </h4>
-        <a href="tel:+18553931260" className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">
-          855-393-1260
+        <a href="tel:8883004143" className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">
+          888-300-4143
         </a>
       </div>
       <div className="flex flex-wrap justify-evenly gap-6 p-4 ">

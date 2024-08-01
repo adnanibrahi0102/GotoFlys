@@ -11,17 +11,17 @@ const CTA = () => {
     {
       title: 'Maldives deluxe package',
       text: `Escape to paradise with the Maldives Deluxe Package, a luxurious retreat where azure waters meet powdery white sands. Stay in private overwater villas, waking up to the soothing sounds of the ocean. Enjoy breathtaking sunsets from your deck and explore vibrant coral reefs through snorkeling or diving adventures. Indulge in world-class dining with ocean views and pamper yourself with rejuvenating spa treatments. Every moment in the Maldives is a blend of opulence and natural beauty, promising an unforgettable escape from the ordinary.`,
-      phoneNumber: '855-393-1260',
+      phoneNumber: ' 888-300-4143',
     },
     {
       title: 'America deluxe package',
       text: `Discover the wonders of America with the America Deluxe Package. From the bustling cities to the serene national parks, this package offers a comprehensive tour of the best sights. Enjoy luxurious accommodations, guided tours, and exclusive experiences. Whether you're exploring the iconic landmarks or indulging in local cuisines, this package ensures a memorable and delightful journey.`,
-      phoneNumber: '855-393-1260',
+      phoneNumber: ' 888-300-4143',
     },
     {
       title: 'Hawaii deluxe package',
       text: `Experience the tropical paradise of Hawaii with the Hawaii Deluxe Package. Stay in premium beachfront resorts, participate in authentic Hawaiian cultural activities, and explore the stunning natural landscapes. From volcano tours to traditional luaus, this package offers a blend of relaxation and adventure. Enjoy the beauty and spirit of Hawaii with this unforgettable package.`,
-      phoneNumber: '855-393-1260',
+      phoneNumber: ' 888-300-4143',
     },
   ];
 

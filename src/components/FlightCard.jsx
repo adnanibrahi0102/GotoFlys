@@ -13,7 +13,7 @@ const FlightCard = ({ airlineLogo, route, dateRange, price }) => (
       <div className="text-gray-500 text-xs">From</div>
       <div className="text-sm font-bold text-orange-600">{price}</div>
       <a 
-        href="tel:8553931260" 
+        href="tel:8883004143"
         className="px-2 py-1 mt-1 text-xs bg-orange-500 text-white rounded-md"
       >
         Book Now
