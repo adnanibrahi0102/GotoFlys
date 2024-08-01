@@ -1,19 +1,16 @@
-import React from 'react'
-import Navigation from './components/Navigation/Navigation'
-import Footer from './components/Footer'
-import { Outlet } from 'react-router-dom'
-import TopBanner from './components/TopCallBanner'
+import React from "react";
+import Navigation from "./components/Navigation/Navigation";
+import Footer from "./components/Footer";
+import { Outlet } from "react-router-dom";
+
 const Layout = () => {
   return (
     <>
-      <div>
-        <TopBanner/>
-      </div>
-      <Navigation/>
-      <Outlet/>
-      <Footer/>
+      <Navigation />
+      <Outlet />
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
