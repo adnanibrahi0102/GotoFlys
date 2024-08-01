@@ -8,7 +8,7 @@ const CallToActionBanner = () => {
   return (
     <a
       href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`}
-      className="fixed bottom-0 inset-x-0 bg-orange-100 text-center p-3 flex items-center justify-center border border-orange-800  m-3 md:hidden rounded-md z-40  "
+      className="fixed bottom-0 inset-x-0 bg-orange-100 text-center p-1 flex items-center justify-center border border-orange-800  m-3 md:hidden rounded-md z-40  "
     >
       <div className="flex items-center">
         <motion.div
@@ -16,11 +16,11 @@ const CallToActionBanner = () => {
           animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <MdOutlineWifiCalling3 className="w-6 h-6 text-white" />
+          <MdOutlineWifiCalling3 className="w-5 h-5 text-white" />
         </motion.div>
-        <div className="ml-4">
-          <p className="font-semibold text-orange-800">Call & Get Unpublished Flight Deals!</p>
-          <p className="font-bold text-xl text-orange-800">{phoneNumber}</p>
+        <div className="ml-3">
+          <p className=" text-base font-semibold text-orange-800">Call & Get Unpublished Flight Deals!</p>
+          <p className="font-semibold text-base text-orange-800">{phoneNumber}</p>
         </div>
       </div>
     </a>
