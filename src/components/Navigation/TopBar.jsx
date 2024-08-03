@@ -1,13 +1,13 @@
 import React from "react";
 import { FaPinterest, FaFacebook, FaTwitter, FaDribbble, FaBehance, FaLinkedin } from 'react-icons/fa';
-
+import { phoneNumber } from "../../lib/number";
 const TopBar = () => {
   return (
     <div className="bg-purple-950 py-2 ">
       <div className="container mx-auto">
         <div className="flex flex-row justify-between items-center">
-          <a href="tel:8883004143" >
-            <div className="text-white mr-4 text-sm">(888-300-4143)</div>
+          <a href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`} >
+            <div className="text-white mr-4 text-sm">{phoneNumber}</div>
           </a>
           <div >
             <ul className="flex space-x-4 gap-2 ">

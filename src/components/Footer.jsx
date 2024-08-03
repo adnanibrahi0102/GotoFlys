@@ -2,7 +2,7 @@ import React from 'react';
 import { FaFacebookF, FaTwitter, FaInstagram, FaBehance } from 'react-icons/fa';
 import { HiLocationMarker, HiPhone, HiMail } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
-
+import { phoneNumber } from '../lib/number';
 const Footer = () => {
   return (
     <>
@@ -69,7 +69,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-2">
                 <HiPhone />
-                <span className="text-sm">(888-300-4143)</span>
+                <span className="text-sm">{phoneNumber}</span>
               </li>
               <li className="flex items-center space-x-2">
                 <HiMail />

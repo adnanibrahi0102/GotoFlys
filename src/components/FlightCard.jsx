@@ -1,4 +1,5 @@
 import React from 'react';
+import { phoneNumber } from '../lib/number';
 
 const FlightCard = ({ airlineLogo, route, dateRange, price }) => (
   <div className="flex items-center justify-between p-2 border rounded-lg shadow-sm">
@@ -13,7 +14,7 @@ const FlightCard = ({ airlineLogo, route, dateRange, price }) => (
       <div className="text-gray-500 text-xs">From</div>
       <div className="text-sm font-bold text-orange-600">{price}</div>
       <a 
-        href="tel:8883004143"
+        href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`}
         className="px-2 py-1 mt-1 text-xs bg-orange-500 text-white rounded-md"
       >
         Book Now

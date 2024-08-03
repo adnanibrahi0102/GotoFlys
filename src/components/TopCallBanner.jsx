@@ -1,6 +1,7 @@
 import React from 'react';
 import { MdOutlineWifiCalling3 } from 'react-icons/md';
 import { motion } from 'framer-motion';
+import { phoneNumber } from '../lib/number';
 const TopBanner = () => {
   return (
     <div className="fixed top-0 inset-x-0 bg-orange-500 text-black text-center p-3 ml-2 mr-2 mb-2 rounded-md flex items-center justify-center z-50 md:hidden">
@@ -13,7 +14,7 @@ const TopBanner = () => {
           <MdOutlineWifiCalling3 className="w-6 h-6 mr-2" /> 
         </motion.div>
         
-        <a href="tel:8883004143" className="font-semibold text-xl ">Call Now: (888-300-4143)</a>
+        <a href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`} className="font-semibold text-xl ">Call Now: {phoneNumber}</a>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import CountUp from 'react-countup';
-
+import { phoneNumber } from '../lib/number';
 const About = () => {
   return (
     <div>
@@ -8,8 +8,8 @@ const About = () => {
         <div className="absolute inset-0 bg-black opacity-50"></div>
         <div className="relative z-10 flex flex-col items-center justify-center min-h-screen text-center text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">About Us</h1>
-          <a href="tel:8553931260" className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">
-            8553931260
+          <a href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`} className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">
+           {phoneNumber}
           </a>
         </div>
       </div>
@@ -25,8 +25,8 @@ const About = () => {
               gotoflys.com is a registered brand name of My Fly Support LLC located at 30 N Gould St R Sheridan, WY 82801, USA which is an international tour & travel company.
               We are not affiliated with any airline companies. We are an independent tour & travel company.
             </p>
-            <a href="tel:8883004143" className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">
-             888-300-4143
+            <a href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`} className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">
+             {phoneNumber}
             </a>
           </div> 
         </div>

@@ -1,9 +1,9 @@
 import React from 'react';
 import { MdOutlineWifiCalling3 } from 'react-icons/md';
 import { motion } from 'framer-motion';
+import { phoneNumber } from '../lib/number';
 
 const CallToActionBanner = () => {
-  const phoneNumber = "888-300-4143";
 
   return (
     <a

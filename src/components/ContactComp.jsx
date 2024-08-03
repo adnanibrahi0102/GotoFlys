@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
-
+import { phoneNumber } from "../lib/number";
 const ContactForm = () => {
   const form = useRef();
   const [isSending, setIsSending] = useState(false);
@@ -138,7 +138,7 @@ const ContactForm = () => {
             <p className="mb-4 text-black">
               3705 64th St Apt 5C Woodside NY 11377-2771
             </p>
-            <p className="mb-4 text-black">(855-393-1260)</p>
+            <p className="mb-4 text-black">{phoneNumber}</p>
             <p className="text-black">info@skywayfares.com</p>
           </div>
         </div>
