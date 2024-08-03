@@ -1,11 +1,18 @@
 import React from 'react';
 import { MdOutlineWifiCalling3 } from 'react-icons/md';
-
+import { motion } from 'framer-motion';
 const TopBanner = () => {
   return (
-    <div className="fixed top-0 inset-x-0 bg-orange-700 text-white text-center p-3 ml-2 mr-2 mb-2 rounded-md flex items-center justify-center z-50 md:hidden">
+    <div className="fixed top-0 inset-x-0 bg-orange-500 text-black text-center p-3 ml-2 mr-2 mb-2 rounded-md flex items-center justify-center z-50 md:hidden">
       <div className="flex items-center w-full max-w-screen-sm mx-auto px-4">
-        <MdOutlineWifiCalling3 className="w-6 h-6 mr-2" />
+        <motion.div
+         className="bg-white p-1 mr-2 rounded-md"
+        animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        >
+          <MdOutlineWifiCalling3 className="w-6 h-6 mr-2" /> 
+        </motion.div>
+        
         <a href="tel:8883004143" className="font-semibold text-xl ">Call Now: (888-300-4143)</a>
       </div>
     </div>
