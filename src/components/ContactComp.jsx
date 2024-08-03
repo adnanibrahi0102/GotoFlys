@@ -123,28 +123,28 @@ const ContactForm = () => {
           </div>
           <div className="w-full md:w-1/2 text-center md:text-left">
             <img
-              src="/assets/logo (1).webp" 
+              src="/assets/logo (1).webp"
               alt="Logo"
               className="mr-3 inline-block align-middle"
             />
-            <h3 className="text-2xl font-bold mb-4 text-black">GotoFlys</h3>
+            <h3 className="text-2xl font-bold mb-4 text-black">Skywayfares</h3>
             <p className="mb-4 text-black">
-              www.GotoFlys.com is an independent Travel service provider under
-              My Fly Support LLC that provides affordable travel services. We
-              are not associated with Airlines in any way, all branding is
-              purely for demonstrative purposes only and does not signify any
-              association with any Airlines or organization.
+              Skywayfares is an independent Travel service provider under My Fly
+              Support LLC that provides affordable travel services. We are not
+              associated with Airlines in any way, all branding is purely for
+              demonstrative purposes only and does not signify any association
+              with any Airlines or organization.
             </p>
             <p className="mb-4 text-black">
-              30 N Gould St R Sheridan, WY 82801, USA
+              3705 64th St Apt 5C Woodside NY 11377-2771
             </p>
             <p className="mb-4 text-black">(855-393-1260)</p>
-            <p className="text-black">support@GotoFlys.com</p>
+            <p className="text-black">info@skywayfares.com</p>
           </div>
         </div>
         <div className="mt-12 w-full">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1337.034442529823!2d-104.19565859146848!3d44.79046255066858!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x535e7604c300262d%3A0x3ec8f68a92c4f15c!2s30%20N%20Gould%20St%2C%20Sheridan%2C%20WY%2082801%2C%20USA!5e0!3m2!1sen!2sin!4v1646987048775!5m2!1sen!2sin"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.9542952217317!2d-73.89857978459574!3d40.7477361793277!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25f282dbaf2a1%3A0x8f680d1bd6e02b29!2s3705%2064th%20St%20Apt%205C%2C%20Woodside%2C%20NY%2011377-2771%2C%20USA!5e0!3m2!1sen!2sin!4v1690993739815!5m2!1sen!2sin"
             width="100%"
             height="400"
             style={{ border: 0 }}

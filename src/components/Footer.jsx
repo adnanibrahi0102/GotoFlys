@@ -11,7 +11,8 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">DISCLAIMER</h3>
             <p className="text-sm">
-              gotoflys.com is a registered brand name of My Fly Support LLC located at 30 N Gould St R Sheridan, WY 82801, USA which is an international tour & travel company.
+              Skywayfares is a registered brand name of My Fly Support LLC located at 3705 64th St Apt 5C
+              Woodside NY 11377-2771 which is an international tour & travel company.
               We are not affiliated with any airline companies. We are an independent tour & travel company.
             </p>
             <div className="flex mt-4 space-x-4">
@@ -63,7 +64,8 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-center space-x-2">
                 <HiLocationMarker />
-                <span className="text-sm">30 N Gould St R Sheridan, WY 82801, USA</span>
+                <span className="text-sm">3705 64th St Apt 5C
+                Woodside NY 11377-2771</span>
               </li>
               <li className="flex items-center space-x-2">
                 <HiPhone />
@@ -71,7 +73,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-2">
                 <HiMail />
-                <span className="text-sm">support@GotoFlys.com</span>
+                <span className="text-sm">info@skywayfares.com</span>
               </li>
             </ul>
           </div>
