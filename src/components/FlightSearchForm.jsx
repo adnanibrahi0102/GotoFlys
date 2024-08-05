@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaPlane, FaHotel, FaCar, FaGlobe, FaShip, FaSwimmer } from 'react-icons/fa';
-import { phoneNumber } from '../lib/number';
 
 const FlightSearchForm = () => {
   const [origin, setOrigin] = useState('');
@@ -70,47 +69,57 @@ const FlightSearchForm = () => {
           {!showMessage ? (
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap justify-center mb-4 gap-2 sm:gap-4 rounded-t-lg">
+                {/* Show only on mobile devices */}
                 <button
                   type="button"
-                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 block lg:hidden"
                 >
                   <FaPlane />
-                  <span className="hidden sm:inline">Flights</span>
+                  <span>Flights</span>
+                </button>
+
+                {/* Hide on mobile devices, show on larger screens */}
+                <button
+                  type="button"
+                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                >
+                  <FaPlane />
+                  <span>Flights</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaHotel />
-                  <span className="hidden sm:inline">Hotels</span>
+                  <span>Hotels</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaCar />
-                  <span className="hidden sm:inline">Car Rentals</span>
+                  <span>Car Rentals</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaGlobe />
-                  <span className="hidden sm:inline">Trips</span>
+                  <span>Trips</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaShip />
-                  <span className="hidden sm:inline">Cruises</span>
+                  <span>Cruises</span>
                 </button>
                 <button
                   type="button"
-                  className="text-white flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent bg-orange-500 transition-colors duration-300"
+                  className="text-white flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent bg-orange-500 transition-colors duration-300 hidden lg:flex"
                 >
                   <FaSwimmer />
-                  <span className="hidden sm:inline">Activities</span>
+                  <span>Activities</span>
                 </button>
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
@@ -234,18 +243,20 @@ const FlightSearchForm = () => {
                     <option value="3">3</option>
                   </select>
                 </div>
+              </div>
+              <div className="mt-4 flex justify-center">
                 <button
                   type="submit"
-                  className="col-span-1 md:col-span-2 lg:col-span-6 inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#ce66f0)] py-2 px-4 text-base font-medium text-white shadow-sm ring-1 ring-purple-800 transition-colors duration-300 hover:bg-purple-800 hover:ring-purple-800 focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                  className="bg-orange-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600 transition-colors duration-300"
                 >
-                  Search Flights
+                  Search
                 </button>
               </div>
             </form>
           ) : (
-            <div className="text-center text-white">
-              <h2 className="text-xl font-semibold">Thank You!</h2>
-              <p>Your flight search request has been submitted. We'll get back to you shortly.</p>
+            <div className="text-center text-white mt-4">
+              <h2 className="text-lg font-semibold">Search Submitted!</h2>
+              <p>Thank you for submitting your search. We will get back to you soon.</p>
             </div>
           )}
         </div>
