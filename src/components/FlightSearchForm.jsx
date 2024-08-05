@@ -7,6 +7,10 @@ import debounce from 'lodash/debounce';
 const FlightSearchForm = () => {
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
+  const [departureDate, setDepartureDate] = useState('');
+  const [returnDate, setReturnDate] = useState('');
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
   const [originSuggestions, setOriginSuggestions] = useState([]);
   const [destinationSuggestions, setDestinationSuggestions] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
@@ -215,12 +219,26 @@ const FlightSearchForm = () => {
                   )}
                 </div>
                 <div className="flex flex-col">
-                  <label htmlFor="date" className="block text-sm font-medium text-gray-700 text-center">
-                    Date
+                  <label htmlFor="departure-date" className="block text-sm font-medium text-gray-700 text-center">
+                    Departure Date
                   </label>
                   <input
                     type="date"
-                    id="date"
+                    id="departure-date"
+                    value={departureDate}
+                    onChange={(e) => setDepartureDate(e.target.value)}
+                    className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="return-date" className="block text-sm font-medium text-gray-700 text-center">
+                    Return Date
+                  </label>
+                  <input
+                    type="date"
+                    id="return-date"
+                    value={returnDate}
+                    onChange={(e) => setReturnDate(e.target.value)}
                     className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80"
                   />
                 </div>
@@ -231,6 +249,8 @@ const FlightSearchForm = () => {
                   <input
                     type="number"
                     id="adults"
+                    value={adults}
+                    onChange={(e) => setAdults(e.target.value)}
                     className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80"
                     min="1"
                   />
@@ -242,24 +262,34 @@ const FlightSearchForm = () => {
                   <input
                     type="number"
                     id="children"
+                    value={children}
+                    onChange={(e) => setChildren(e.target.value)}
                     className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80"
                     min="0"
                   />
                 </div>
-                
               </div>
-              <div className="flex justify-center mt-4">
+              <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors duration-300"
+                  className="mt-6 bg-gradient-to-r from-purple-500 to-orange-500 text-white px-6 py-3 rounded-lg hover:from-orange-500 hover:to-purple-500 transition-colors duration-300"
                 >
                   Search
                 </button>
               </div>
             </form>
           ) : (
-            <div className="text-center text-lg text-green-500">
-              <p>Thank you for your submission. Our servers are busy.</p>
+            <div className="text-center text-lg">
+              <p>
+                Our servers are busy. Please call{' '}
+                <a
+                  href={`tel:${phoneNumber}`}
+                  className="inline-flex h-8 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-4 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
+                >
+                  {phoneNumber}
+                </a>{' '}
+                for assistance.
+              </p>
               <button
                 onClick={handleBackToSearch}
                 className="mt-4 bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300"
