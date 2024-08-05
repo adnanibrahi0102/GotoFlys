@@ -76,9 +76,9 @@ const FlightSearchForm = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6">
+    <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6 shadow-md">
       <div className="container mx-auto px-6 bg-white">
-        <div className="bg-white py-6 px-10 rounded-lg shadow-lg">
+        <div className="bg-white py-6 px-10 rounded-lg ">
           {serverBusyMessage ? (
             <div className="text-center text-base text-red-500">
               <p>Our servers are busy. Please call <a href={`tel:${phoneNumber}`} className="inline-flex h-10 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-4 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">{phoneNumber}</a> for assistance.</p>
