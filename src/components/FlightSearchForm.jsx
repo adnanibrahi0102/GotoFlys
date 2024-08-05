@@ -77,8 +77,8 @@ const FlightSearchForm = () => {
 
   return (
     <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6 shadow-md">
-      <div className="container mx-auto px-6 bg-white">
-        <div className="bg-white py-6 px-10 rounded-lg ">
+      <div className="  bg-white w-full">
+        <div className="bg-white py-6 px-4 rounded-lg w-[100%]">
           {serverBusyMessage ? (
             <div className="text-center text-base text-red-500">
               <p>Our servers are busy. Please call <a href={`tel:${phoneNumber}`} className="inline-flex h-10 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-4 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">{phoneNumber}</a> for assistance.</p>
@@ -160,7 +160,7 @@ const FlightSearchForm = () => {
                       placeholder="From"
                       value={origin}
                       onChange={(e) => handleInputChange(e, setOrigin, setOriginSuggestions)}
-                      className="mt-1 p-2 border border-gray-300 rounded w-full"
+                      className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80" // Full width on mobile, fixed width on larger screens
                     />
                     {originSuggestions.length > 0 && (
                       <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
@@ -189,7 +189,7 @@ const FlightSearchForm = () => {
                       placeholder="To"
                       value={destination}
                       onChange={(e) => handleInputChange(e, setDestination, setDestinationSuggestions)}
-                      className="mt-1 p-2 border border-gray-300 rounded w-full"
+                      className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80" // Full width on mobile, fixed width on larger screens
                     />
                     {destinationSuggestions.length > 0 && (
                       <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
@@ -210,7 +210,7 @@ const FlightSearchForm = () => {
                       htmlFor="departure"
                       className="block text-sm font-medium text-gray-700 text-center"
                     >
-                      Departure
+                      Departure Date
                     </label>
                     <input
                       type="date"
@@ -223,7 +223,7 @@ const FlightSearchForm = () => {
                       htmlFor="return"
                       className="block text-sm font-medium text-gray-700 text-center"
                     >
-                      Return
+                      Return Date
                     </label>
                     <input
                       type="date"
@@ -231,55 +231,26 @@ const FlightSearchForm = () => {
                       className="mt-1 p-2 border border-gray-300 rounded w-full"
                     />
                   </div>
-                  <div>
-                    <label
-                      htmlFor="adults"
-                      className="block text-sm font-medium text-gray-700 text-center"
+                  <div className="col-span-full text-center">
+                    <button
+                      type="submit"
+                      className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors duration-300"
                     >
-                      Adults
-                    </label>
-                    <select
-                      id="adults"
-                      className="mt-1 p-2 border border-gray-300 rounded w-full"
-                    >
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                    </select>
+                      Search Flights
+                    </button>
                   </div>
-                  <div>
-                    <label
-                      htmlFor="children"
-                      className="block text-sm font-medium text-gray-700 text-center"
-                    >
-                      Children
-                    </label>
-                    <select
-                      id="children"
-                      className="mt-1 p-2 border border-gray-300 rounded w-full"
-                    >
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="flex justify-center mt-4">
-                  <button
-                    type="submit"
-                    className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors duration-300"
-                  >
-                    Search
-                  </button>
                 </div>
               </form>
             ) : (
-              <div className="text-center text-lg font-medium text-gray-700">
-                Search Completed!
+              <div className="text-center">
+                <p className="text-lg font-semibold mb-4">Search Results</p>
+                <p className="text-base text-gray-700">Your search results will appear here.</p>
+                <button
+                  onClick={handleBackToSearch}
+                  className="mt-4 bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300"
+                >
+                  Back to Search
+                </button>
               </div>
             )
           )}
