@@ -1,59 +1,73 @@
-import React from "react";
-import {
-  FaPlane,
-  FaHotel,
-  FaCar,
-  FaGlobe,
-  FaShip,
-  FaSwimmer,
-} from "react-icons/fa";
-import Card from "./Card";
-import { phoneNumber } from "../lib/number";
-import FlightSearchForm from './FlightSearchForm'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { FaPlane, FaHotel, FaCar, FaGlobe, FaShip, FaSwimmer } from 'react-icons/fa';
+import { phoneNumber } from '../lib/number';
 
-const Booking = () => {
- 
+const FlightSearchForm = () => {
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
+  const [originSuggestions, setOriginSuggestions] = useState([]);
+  const [destinationSuggestions, setDestinationSuggestions] = useState([]);
+  const [showMessage, setShowMessage] = useState(false); // State to control message visibility
 
-  const cards = [
-    {
-      image:
-        "https://images.unsplash.com/photo-1513415277900-a62401e19be4?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      date: "May 25th - June 01st",
-      title: "Mauritius",
-      price: "From $1450",
-      rating: 4,
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1573790387438-4da905039392?q=80&w=1450&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      date: "June 10th - June 20th",
-      title: "Bali",
-      price: "From $1250",
-      rating: 5,
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      date: "July 15th - July 25th",
-      title: "Paris",
-      price: "From $2000",
-      rating: 3,
-    },
-  ];
+  useEffect(() => {
+    if (origin.length > 2) {
+      fetchSuggestions(origin, setOriginSuggestions);
+    } else {
+      setOriginSuggestions([]);
+    }
+  }, [origin]);
 
- 
+  useEffect(() => {
+    if (destination.length > 2) {
+      fetchSuggestions(destination, setDestinationSuggestions);
+    } else {
+      setDestinationSuggestions([]);
+    }
+  }, [destination]);
+
+  const fetchSuggestions = async (query, setSuggestions) => {
+    const API_TOKEN = import.meta.env.VITE_APP_TRAVELPAYOUTS_API_TOKEN;
+    try {
+      const response = await axios.get(
+        `https://autocomplete.travelpayouts.com/places2?term=${query}&locale=en&types[]=city`,
+        {
+          headers: {
+            'X-Access-Token': API_TOKEN,
+          },
+        }
+      );
+      setSuggestions(response.data);
+    } catch (error) {
+      console.error('Error fetching suggestions:', error);
+    }
+  };
+
+  const handleClickSuggestion = (value, setValue, setSuggestions) => {
+    setValue(value);
+    setSuggestions([]); // Clear suggestions after selection
+  };
+
+  const handleInputChange = (e, setValue, setSuggestions) => {
+    const value = e.target.value;
+    setValue(value);
+    if (value.length > 2) {
+      fetchSuggestions(value, setSuggestions);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+    setShowMessage(true); // Show the message when the form is submitted
   };
 
   return (
-    <div>
-      
-      
-      {/* <div className=" hidden md:block bg-gradient-to-r from-orange-500 to-purple-600 py-6">
-        <div className="container mx-auto px-4">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
+    <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6">
+      <div className="container mx-auto px-4">
+        <div className="bg-white p-6 rounded-lg shadow-lg">
+          {!showMessage ? (
             <form onSubmit={handleSubmit}>
               <div className="flex flex-wrap justify-around mb-4 rounded-t-lg">
                 <button
@@ -100,7 +114,7 @@ const Booking = () => {
                 </button>
               </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-                <div>
+                <div className="relative">
                   <label
                     htmlFor="origin"
                     className="block text-sm font-medium text-gray-700 text-center"
@@ -111,10 +125,25 @@ const Booking = () => {
                     type="text"
                     id="origin"
                     placeholder="Origin From"
+                    value={origin}
+                    onChange={(e) => handleInputChange(e, setOrigin, setOriginSuggestions)}
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
+                  {originSuggestions.length > 0 && (
+                    <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full">
+                      {originSuggestions.map((suggestion) => (
+                        <li
+                          key={suggestion.code}
+                          onClick={() => handleClickSuggestion(suggestion.name, setOrigin, setOriginSuggestions)}
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                        >
+                          {suggestion.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
-                <div>
+                <div className="relative">
                   <label
                     htmlFor="destination"
                     className="block text-sm font-medium text-gray-700 text-center"
@@ -125,8 +154,23 @@ const Booking = () => {
                     type="text"
                     id="destination"
                     placeholder="Destination To"
+                    value={destination}
+                    onChange={(e) => handleInputChange(e, setDestination, setDestinationSuggestions)}
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
+                  {destinationSuggestions.length > 0 && (
+                    <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full">
+                      {destinationSuggestions.map((suggestion) => (
+                        <li
+                          key={suggestion.code}
+                          onClick={() => handleClickSuggestion(suggestion.name, setDestination, setDestinationSuggestions)}
+                          className="p-2 cursor-pointer hover:bg-gray-200"
+                        >
+                          {suggestion.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
                 <div>
                   <label
@@ -192,42 +236,35 @@ const Booking = () => {
                 </div>
                 <button
                   type="submit"
-                  className="col-span-1 md:col-span-2 lg:col-span-6 inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
+                  className="col-span-1 md:col-span-2 lg:col-span-6 inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#ce66f0)] py-2 px-4 text-base font-medium text-white shadow-sm ring-1 ring-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
                 >
-                  Search
+                  Search Flights
                 </button>
               </div>
             </form>
-          </div>
+          ) : (
+            <div className="text-center h-[100%] flex flex-col justify-center items-center">
+              <p className="text-lg font-medium text-gray-700 mb-4">
+                Our servers are busy, Please contact us at{' '}
+                <a
+                  href={`tel:${phoneNumber}`}
+                  className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
+                >
+                  {phoneNumber}
+                </a>
+              </p>
+              <button
+                onClick={() => setShowMessage(false)}
+                className="inline-flex h-12 items-center justify-center rounded-md border border-transparent bg-green-500 py-2 px-4 text-base font-medium text-white shadow-sm hover:bg-green-600"
+              >
+                Back to Search
+              </button>
+            </div>
+          )}
         </div>
-      </div> */}
-      <div className="flex flex-col gap-8 justify-center items-center p-4">
-        <h1 className="mt-8 text-3xl sm:text-5xl font-bold text-center">
-          Call Answered in 5 Seconds
-        </h1>
-        <h4 className="text-xl sm:text-3xl font-mono text-center">
-          Unpublished offers and great discounts when you book on-call.
-        </h4>
-        <a href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`} className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">
-          {phoneNumber}
-        </a>
       </div>
-      <div className="flex flex-wrap justify-evenly gap-6 p-4 ">
-        {cards.map((card, index) => (
-          <div key={index} className="w-full md:w-1/3 lg:w-1/4">
-            <Card
-              image={card.image}
-              date={card.date}
-              title={card.title}
-              price={card.price}
-              rating={card.rating}
-            />
-          </div>
-        ))}
-      </div>
-      
     </div>
   );
 };
 
-export default Booking;
+export default FlightSearchForm;
