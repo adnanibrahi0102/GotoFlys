@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { FaPlane, FaHotel, FaCar, FaGlobe, FaShip, FaSwimmer } from 'react-icons/fa';
 import { phoneNumber } from '../lib/number';
+import debounce from 'lodash/debounce';
+
 const FlightSearchForm = () => {
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
@@ -10,38 +12,42 @@ const FlightSearchForm = () => {
   const [showMessage, setShowMessage] = useState(false); // State to control message visibility
   const [serverBusyMessage, setServerBusyMessage] = useState(false); // State to control server busy message
 
+  // Debounced version of the fetchSuggestions function
+  const debouncedFetchSuggestions = useCallback(
+    debounce(async (query, setSuggestions) => {
+      const API_TOKEN = import.meta.env.VITE_APP_TRAVELPAYOUTS_API_TOKEN;
+      try {
+        const response = await axios.get(
+          `https://autocomplete.travelpayouts.com/places2?term=${query}&locale=en&types[]=city`,
+          {
+            headers: {
+              'X-Access-Token': API_TOKEN,
+            },
+          }
+        );
+        setSuggestions(response.data);
+      } catch (error) {
+        console.error('Error fetching suggestions:', error);
+      }
+    }, 300), // Adjust debounce delay as needed
+    []
+  );
+
   useEffect(() => {
     if (origin.length > 2) {
-      fetchSuggestions(origin, setOriginSuggestions);
+      debouncedFetchSuggestions(origin, setOriginSuggestions);
     } else {
       setOriginSuggestions([]);
     }
-  }, [origin]);
+  }, [origin, debouncedFetchSuggestions]);
 
   useEffect(() => {
-    if (destination.length > 2) {
-      fetchSuggestions(destination, setDestinationSuggestions);
+    if (destination.length > 1) {
+      debouncedFetchSuggestions(destination, setDestinationSuggestions);
     } else {
       setDestinationSuggestions([]);
     }
-  }, [destination]);
-
-  const fetchSuggestions = async (query, setSuggestions) => {
-    const API_TOKEN = import.meta.env.VITE_APP_TRAVELPAYOUTS_API_TOKEN;
-    try {
-      const response = await axios.get(
-        `https://autocomplete.travelpayouts.com/places2?term=${query}&locale=en&types[]=city`,
-        {
-          headers: {
-            'X-Access-Token': API_TOKEN,
-          },
-        }
-      );
-      setSuggestions(response.data);
-    } catch (error) {
-      console.error('Error fetching suggestions:', error);
-    }
-  };
+  }, [destination, debouncedFetchSuggestions]);
 
   const handleClickSuggestion = (value, setValue, setSuggestions) => {
     setValue(value);
@@ -52,7 +58,7 @@ const FlightSearchForm = () => {
     const value = e.target.value;
     setValue(value);
     if (value.length > 2) {
-      fetchSuggestions(value, setSuggestions);
+      debouncedFetchSuggestions(value, setSuggestions);
     } else {
       setSuggestions([]);
     }
@@ -64,11 +70,26 @@ const FlightSearchForm = () => {
     setShowMessage(true); // Optionally show a success message
   };
 
+  const handleBackToSearch = () => {
+    setServerBusyMessage(false); // Hide the server busy message
+    setShowMessage(false); // Hide the success message
+  };
+
   return (
     <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6">
       <div className="container mx-auto px-4">
         <div className="bg-white p-6 rounded-lg shadow-lg">
-          {!serverBusyMessage ? (
+          {serverBusyMessage ? (
+            <div className="text-center text-base text-red-500">
+              <p>Our servers are busy. Please call <a href={`tel:${phoneNumber}`} className="inline-flex h-10 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-4 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">{phoneNumber}</a> for assistance.</p>
+              <button
+                onClick={handleBackToSearch}
+                className="mt-4 bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300"
+              >
+                Back to Search
+              </button>
+            </div>
+          ) : (
             !showMessage ? (
               <form onSubmit={handleSubmit}>
                 <div className="flex flex-wrap justify-center mb-4 gap-2 sm:gap-4">
@@ -221,11 +242,11 @@ const FlightSearchForm = () => {
                       id="adults"
                       className="mt-1 p-2 border border-gray-300 rounded w-full"
                     >
-                      <option value="">Adults</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
+                      <option value="5">5</option>
                     </select>
                   </div>
                   <div>
@@ -239,33 +260,28 @@ const FlightSearchForm = () => {
                       id="children"
                       className="mt-1 p-2 border border-gray-300 rounded w-full"
                     >
-                      <option value="">Children</option>
                       <option value="0">0</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
+                      <option value="4">4</option>
                     </select>
                   </div>
                 </div>
                 <div className="flex justify-center mt-4">
                   <button
                     type="submit"
-                    className="px-6 py-3 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors duration-300"
+                    className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors duration-300"
                   >
                     Search
                   </button>
                 </div>
               </form>
             ) : (
-              <div className="text-center text-green-500">
-                {/* You can add a success message or leave it as an empty block */}
-                Thank you for your submission!
+              <div className="text-center text-lg font-medium text-gray-700">
+                Search Completed!
               </div>
             )
-          ) : (
-            <div className="text-center text-base text-red-500">
-              <p>Our servers are busy. Please call <a href="tel:1234567890" className="inline-flex h-10 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-4 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">{phoneNumber}</a> for assistance.</p>
-            </div>
           )}
         </div>
       </div>
