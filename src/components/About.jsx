@@ -22,7 +22,7 @@ const About = () => {
           <div className="w-full md:w-1/2 p-4">
             <h2 className="text-3xl font-bold mb-4">We Have the Best Tours</h2>
             <p className="text-lg mb-4 text-gray-500">
-              gotoflys.com is a registered brand name of My Fly Support LLC located at 30 N Gould St R Sheridan, WY 82801, USA which is an international tour & travel company.
+              skywayfares.com is a registered brand name located at 30 N Gould St R Sheridan, WY 82801, USA which is an international tour & travel company.
               We are not affiliated with any airline companies. We are an independent tour & travel company.
             </p>
             <a href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`} className="inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">

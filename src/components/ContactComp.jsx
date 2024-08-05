@@ -129,8 +129,7 @@ const ContactForm = () => {
             />
             <h3 className="text-2xl font-bold mb-4 text-black">Skywayfares</h3>
             <p className="mb-4 text-black">
-              Skywayfares is an independent Travel service provider under My Fly
-              Support LLC that provides affordable travel services. We are not
+              Skywayfares is an independent Travel service provider that provides affordable travel services. We are not
               associated with Airlines in any way, all branding is purely for
               demonstrative purposes only and does not signify any association
               with any Airlines or organization.
