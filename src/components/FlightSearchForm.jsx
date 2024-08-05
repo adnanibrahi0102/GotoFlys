@@ -29,7 +29,7 @@ const FlightSearchForm = () => {
       } catch (error) {
         console.error('Error fetching suggestions:', error);
       }
-    }, 300), // Adjust debounce delay as needed
+    }, 100), // Adjust debounce delay as needed
     []
   );
 
@@ -77,8 +77,8 @@ const FlightSearchForm = () => {
 
   return (
     <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6">
-      <div className="container mx-auto px-4">
-        <div className="bg-white p-6 rounded-lg shadow-lg">
+      <div className="container mx-auto px-6 bg-white">
+        <div className="bg-white py-6 px-10 rounded-lg shadow-lg">
           {serverBusyMessage ? (
             <div className="text-center text-base text-red-500">
               <p>Our servers are busy. Please call <a href={`tel:${phoneNumber}`} className="inline-flex h-10 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-4 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50">{phoneNumber}</a> for assistance.</p>
