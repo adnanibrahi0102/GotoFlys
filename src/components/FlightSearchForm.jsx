@@ -20,17 +20,16 @@ const FlightSearchForm = () => {
 
   const fetchSuggestions = useCallback(
     debounce(async (query, setSuggestions) => {
+      if (query.length < 1) return;
       try {
-        console.time('fetchSuggestions');
         const response = await axios.get(
-          `https://autocomplete.travelpayouts.com/places2?term=${query}&locale=en&types[]=city`,
+          `https://autocomplete.travelpayouts.com/places2?term=${query}&locale=en&types[]=city&types[]=airport&types[]=country`,
           {
             headers: {
               'X-Access-Token': API_TOKEN,
             },
           }
         );
-        console.timeEnd('fetchSuggestions');
         setSuggestions(response.data);
       } catch (error) {
         console.error('Error fetching suggestions:', error);
@@ -41,19 +40,11 @@ const FlightSearchForm = () => {
   );
 
   useEffect(() => {
-    if (origin.length > 2) {
-      fetchSuggestions(origin, setOriginSuggestions);
-    } else {
-      setOriginSuggestions([]);
-    }
+    fetchSuggestions(origin, setOriginSuggestions);
   }, [origin, fetchSuggestions]);
 
   useEffect(() => {
-    if (destination.length > 2) {
-      fetchSuggestions(destination, setDestinationSuggestions);
-    } else {
-      setDestinationSuggestions([]);
-    }
+    fetchSuggestions(destination, setDestinationSuggestions);
   }, [destination, fetchSuggestions]);
 
   const handleClickSuggestion = useCallback((value, setValue, setSuggestions) => {
@@ -65,11 +56,7 @@ const FlightSearchForm = () => {
     (e, setValue, setSuggestions) => {
       const value = e.target.value;
       setValue(value);
-      if (value.length > 2) {
-        fetchSuggestions(value, setSuggestions);
-      } else {
-        setSuggestions([]);
-      }
+      fetchSuggestions(value, setSuggestions);
     },
     [fetchSuggestions]
   );
@@ -91,7 +78,7 @@ const FlightSearchForm = () => {
   return (
     <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6 shadow-md">
       <div className="bg-white w-full">
-        <div className="bg-white py-6 px-4 rounded-lg w-[100%]">
+        <div className="bg-white py-6 px-4 rounded-lg w-full">
           {serverBusyMessage ? (
             <div className="text-center text-base text-red-500">
               <p>
@@ -116,7 +103,7 @@ const FlightSearchForm = () => {
               <div className="flex flex-wrap justify-center mb-4 gap-2 sm:gap-4">
                 <button
                   type="button"
-                  className="text-orange-500 flex items-center space-x-2 px-4 py-2 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 block lg:hidden"
+                  className="text-orange-500  items-center space-x-2 px-4 py-2 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 block lg:hidden"
                 >
                   <FaPlane />
                   <span className="text-xs">Flights</span>
@@ -124,42 +111,42 @@ const FlightSearchForm = () => {
 
                 <button
                   type="button"
-                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                  className="text-orange-500 items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaPlane />
                   <span>Flights</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                  className="text-orange-500 items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaHotel />
                   <span>Hotels</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaCar />
                   <span>Car Rentals</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaGlobe />
                   <span>Trips</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500 flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaShip />
                   <span>Cruises</span>
                 </button>
                 <button
                   type="button"
-                  className="text-white flex items-center space-x-2 px-6 py-3 rounded-lg border border-transparent bg-orange-500 transition-colors duration-300 hidden lg:flex"
+                  className="text-white items-center space-x-2 px-6 py-3 rounded-lg border border-transparent bg-orange-500 transition-colors duration-300 hidden lg:flex"
                 >
                   <FaSwimmer />
                   <span>Activities</span>
@@ -176,22 +163,23 @@ const FlightSearchForm = () => {
                     placeholder="From"
                     value={origin}
                     onChange={(e) => handleInputChange(e, setOrigin, setOriginSuggestions)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                   {memoizedOriginSuggestions.length > 0 && (
                     <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
                       {memoizedOriginSuggestions.map((suggestion) => (
                         <li
                           key={suggestion.code}
-                          onClick={() => handleClickSuggestion(suggestion.name, setOrigin, setOriginSuggestions)}
+                          onClick={() => handleClickSuggestion(`${suggestion.name} (${suggestion.code})`, setOrigin, setOriginSuggestions)}
                           className="p-2 cursor-pointer hover:bg-gray-200"
                         >
-                          {suggestion.name}
+                          {suggestion.name} ({suggestion.code})
                         </li>
                       ))}
                     </ul>
                   )}
                 </div>
+
                 <div className="relative">
                   <label htmlFor="destination" className="block text-sm font-medium text-gray-700 text-center">
                     Destination
@@ -202,47 +190,50 @@ const FlightSearchForm = () => {
                     placeholder="To"
                     value={destination}
                     onChange={(e) => handleInputChange(e, setDestination, setDestinationSuggestions)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                   {memoizedDestinationSuggestions.length > 0 && (
                     <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
                       {memoizedDestinationSuggestions.map((suggestion) => (
                         <li
                           key={suggestion.code}
-                          onClick={() => handleClickSuggestion(suggestion.name, setDestination, setDestinationSuggestions)}
+                          onClick={() => handleClickSuggestion(`${suggestion.name} (${suggestion.code})`, setDestination, setDestinationSuggestions)}
                           className="p-2 cursor-pointer hover:bg-gray-200"
                         >
-                          {suggestion.name}
+                          {suggestion.name} ({suggestion.code})
                         </li>
                       ))}
                     </ul>
                   )}
                 </div>
-                <div className="flex flex-col">
-                  <label htmlFor="departure-date" className="block text-sm font-medium text-gray-700 text-center">
+
+                <div className="relative">
+                  <label htmlFor="departureDate" className="block text-sm font-medium text-gray-700 text-center">
                     Departure Date
                   </label>
                   <input
                     type="date"
-                    id="departure-date"
+                    id="departureDate"
                     value={departureDate}
                     onChange={(e) => setDepartureDate(e.target.value)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                 </div>
-                <div className="flex flex-col">
-                  <label htmlFor="return-date" className="block text-sm font-medium text-gray-700 text-center">
+
+                <div className="relative">
+                  <label htmlFor="returnDate" className="block text-sm font-medium text-gray-700 text-center">
                     Return Date
                   </label>
                   <input
                     type="date"
-                    id="return-date"
+                    id="returnDate"
                     value={returnDate}
                     onChange={(e) => setReturnDate(e.target.value)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                 </div>
-                <div className="flex flex-col">
+
+                <div className="relative">
                   <label htmlFor="adults" className="block text-sm font-medium text-gray-700 text-center">
                     Adults
                   </label>
@@ -251,11 +242,12 @@ const FlightSearchForm = () => {
                     id="adults"
                     value={adults}
                     onChange={(e) => setAdults(e.target.value)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80"
                     min="1"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                 </div>
-                <div className="flex flex-col">
+
+                <div className="relative">
                   <label htmlFor="children" className="block text-sm font-medium text-gray-700 text-center">
                     Children
                   </label>
@@ -264,22 +256,22 @@ const FlightSearchForm = () => {
                     id="children"
                     value={children}
                     onChange={(e) => setChildren(e.target.value)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full md:w-80"
                     min="0"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                 </div>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center mt-4">
                 <button
                   type="submit"
-                  className="mt-6 bg-gradient-to-r from-purple-500 to-orange-500 text-white px-6 py-3 rounded-lg hover:from-orange-500 hover:to-purple-500 transition-colors duration-300"
+                  className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors duration-300"
                 >
                   Search
                 </button>
               </div>
             </form>
           ) : (
-            <div className="text-center text-lg">
+            <div className="text-center">
               <p>
                 Our servers are busy. Please call{' '}
                 <a
