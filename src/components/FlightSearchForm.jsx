@@ -93,8 +93,8 @@ const FlightSearchForm = () => {
 
   return (
     <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6 shadow-md">
-      <div className="bg-white w-full">
-        <div className="bg-white py-6 px-4 rounded-lg w-full">
+      <div className="bg-white ">
+        <div className="bg-white py-6 px-4 rounded-lg ">
           {serverBusyMessage ? (
             <div className="text-center text-base text-red-500">
               <p>
