@@ -261,7 +261,7 @@ const FlightSearchForm = () => {
                     id="departureDate"
                     value={departureDate}
                     onChange={(e) => setDepartureDate(e.target.value)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full md:w-[80vw]"
+                    className="mt-1 p-2 border border-gray-300 rounded w-[80vw] md:w-full"
                   />
                 </div>
 
@@ -277,7 +277,7 @@ const FlightSearchForm = () => {
                     id="returnDate"
                     value={returnDate}
                     onChange={(e) => setReturnDate(e.target.value)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full md:w-[80vw]"
+                    className="mt-1 p-2 border border-gray-300 rounded w-[80vw] md:w-full"
                   />
                 </div>
 
