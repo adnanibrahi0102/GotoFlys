@@ -265,7 +265,7 @@ const FlightSearchForm = () => {
                   />
                 </div>
 
-                <div className="relative bg-yellow-600">
+                <div className="relative ">
                   <label
                     htmlFor="returnDate"
                     className="block text-sm font-medium text-gray-700 text-center"
