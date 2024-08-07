@@ -1,14 +1,21 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import axios from 'axios';
-import { FaPlane, FaHotel, FaCar, FaGlobe, FaShip, FaSwimmer } from 'react-icons/fa';
-import { phoneNumber } from '../lib/number';
-import debounce from 'lodash/debounce';
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import axios from "axios";
+import {
+  FaPlane,
+  FaHotel,
+  FaCar,
+  FaGlobe,
+  FaShip,
+  FaSwimmer,
+} from "react-icons/fa";
+import { phoneNumber } from "../lib/number";
+import debounce from "lodash/debounce";
 
 const FlightSearchForm = () => {
-  const [origin, setOrigin] = useState('');
-  const [destination, setDestination] = useState('');
-  const [departureDate, setDepartureDate] = useState('');
-  const [returnDate, setReturnDate] = useState('');
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [originSuggestions, setOriginSuggestions] = useState([]);
@@ -26,13 +33,13 @@ const FlightSearchForm = () => {
           `https://autocomplete.travelpayouts.com/places2?term=${query}&locale=en&types[]=city&types[]=airport&types[]=country`,
           {
             headers: {
-              'X-Access-Token': API_TOKEN,
+              "X-Access-Token": API_TOKEN,
             },
           }
         );
         setSuggestions(response.data);
       } catch (error) {
-        console.error('Error fetching suggestions:', error);
+        console.error("Error fetching suggestions:", error);
         setSuggestions([]);
       }
     }, 300),
@@ -47,10 +54,13 @@ const FlightSearchForm = () => {
     fetchSuggestions(destination, setDestinationSuggestions);
   }, [destination, fetchSuggestions]);
 
-  const handleClickSuggestion = useCallback((value, setValue, setSuggestions) => {
-    setValue(value);
-    setSuggestions([]);
-  }, []);
+  const handleClickSuggestion = useCallback(
+    (value, setValue, setSuggestions) => {
+      setValue(value);
+      setSuggestions([]);
+    },
+    []
+  );
 
   const handleInputChange = useCallback(
     (e, setValue, setSuggestions) => {
@@ -72,8 +82,14 @@ const FlightSearchForm = () => {
     setShowMessage(false);
   };
 
-  const memoizedOriginSuggestions = useMemo(() => originSuggestions, [originSuggestions]);
-  const memoizedDestinationSuggestions = useMemo(() => destinationSuggestions, [destinationSuggestions]);
+  const memoizedOriginSuggestions = useMemo(
+    () => originSuggestions,
+    [originSuggestions]
+  );
+  const memoizedDestinationSuggestions = useMemo(
+    () => destinationSuggestions,
+    [destinationSuggestions]
+  );
 
   return (
     <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6 shadow-md">
@@ -82,13 +98,13 @@ const FlightSearchForm = () => {
           {serverBusyMessage ? (
             <div className="text-center text-base text-red-500">
               <p>
-                Our servers are busy. Please call{' '}
+                Our servers are busy. Please call{" "}
                 <a
                   href={`tel:${phoneNumber}`}
                   className="inline-flex h-8 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-4 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
                 >
                   {phoneNumber}
-                </a>{' '}
+                </a>{" "}
                 for assistance.
               </p>
               <button
@@ -154,7 +170,10 @@ const FlightSearchForm = () => {
               </div>
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
                 <div className="relative">
-                  <label htmlFor="origin" className="block text-sm font-medium text-gray-700 text-center">
+                  <label
+                    htmlFor="origin"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
                     Origin
                   </label>
                   <input
@@ -162,7 +181,9 @@ const FlightSearchForm = () => {
                     id="origin"
                     placeholder="From"
                     value={origin}
-                    onChange={(e) => handleInputChange(e, setOrigin, setOriginSuggestions)}
+                    onChange={(e) =>
+                      handleInputChange(e, setOrigin, setOriginSuggestions)
+                    }
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                   {memoizedOriginSuggestions.length > 0 && (
@@ -170,7 +191,13 @@ const FlightSearchForm = () => {
                       {memoizedOriginSuggestions.map((suggestion) => (
                         <li
                           key={suggestion.code}
-                          onClick={() => handleClickSuggestion(`${suggestion.name} (${suggestion.code})`, setOrigin, setOriginSuggestions)}
+                          onClick={() =>
+                            handleClickSuggestion(
+                              `${suggestion.name} (${suggestion.code})`,
+                              setOrigin,
+                              setOriginSuggestions
+                            )
+                          }
                           className="p-2 cursor-pointer hover:bg-gray-200"
                         >
                           {suggestion.name} ({suggestion.code})
@@ -181,7 +208,10 @@ const FlightSearchForm = () => {
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="destination" className="block text-sm font-medium text-gray-700 text-center">
+                  <label
+                    htmlFor="destination"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
                     Destination
                   </label>
                   <input
@@ -189,7 +219,13 @@ const FlightSearchForm = () => {
                     id="destination"
                     placeholder="To"
                     value={destination}
-                    onChange={(e) => handleInputChange(e, setDestination, setDestinationSuggestions)}
+                    onChange={(e) =>
+                      handleInputChange(
+                        e,
+                        setDestination,
+                        setDestinationSuggestions
+                      )
+                    }
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                   {memoizedDestinationSuggestions.length > 0 && (
@@ -197,7 +233,13 @@ const FlightSearchForm = () => {
                       {memoizedDestinationSuggestions.map((suggestion) => (
                         <li
                           key={suggestion.code}
-                          onClick={() => handleClickSuggestion(`${suggestion.name} (${suggestion.code})`, setDestination, setDestinationSuggestions)}
+                          onClick={() =>
+                            handleClickSuggestion(
+                              `${suggestion.name} (${suggestion.code})`,
+                              setDestination,
+                              setDestinationSuggestions
+                            )
+                          }
                           className="p-2 cursor-pointer hover:bg-gray-200"
                         >
                           {suggestion.name} ({suggestion.code})
@@ -208,7 +250,10 @@ const FlightSearchForm = () => {
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="departureDate" className="block text-sm font-medium text-gray-700 text-center">
+                  <label
+                    htmlFor="departureDate"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
                     Departure Date
                   </label>
                   <input
@@ -221,7 +266,10 @@ const FlightSearchForm = () => {
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="returnDate" className="block text-sm font-medium text-gray-700 text-center">
+                  <label
+                    htmlFor="returnDate"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
                     Return Date
                   </label>
                   <input
@@ -234,7 +282,10 @@ const FlightSearchForm = () => {
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="adults" className="block text-sm font-medium text-gray-700 text-center">
+                  <label
+                    htmlFor="adults"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
                     Adults
                   </label>
                   <input
@@ -248,7 +299,10 @@ const FlightSearchForm = () => {
                 </div>
 
                 <div className="relative">
-                  <label htmlFor="children" className="block text-sm font-medium text-gray-700 text-center">
+                  <label
+                    htmlFor="children"
+                    className="block text-sm font-medium text-gray-700 text-center"
+                  >
                     Children
                   </label>
                   <input
@@ -273,13 +327,13 @@ const FlightSearchForm = () => {
           ) : (
             <div className="text-center">
               <p>
-                Our servers are busy. Please call{' '}
+                Our servers are busy. Please call{" "}
                 <a
                   href={`tel:${phoneNumber}`}
                   className="inline-flex h-8 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-4 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
                 >
                   {phoneNumber}
-                </a>{' '}
+                </a>{" "}
                 for assistance.
               </p>
               <button
