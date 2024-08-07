@@ -261,11 +261,11 @@ const FlightSearchForm = () => {
                     id="departureDate"
                     value={departureDate}
                     onChange={(e) => setDepartureDate(e.target.value)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-[80vw] md:w-full"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                 </div>
 
-                <div className="relative">
+                <div className="relative bg-yellow-600">
                   <label
                     htmlFor="returnDate"
                     className="block text-sm font-medium text-gray-700 text-center"
@@ -277,7 +277,7 @@ const FlightSearchForm = () => {
                     id="returnDate"
                     value={returnDate}
                     onChange={(e) => setReturnDate(e.target.value)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-[80vw] md:w-full"
+                    className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                 </div>
 
