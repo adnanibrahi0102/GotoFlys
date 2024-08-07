@@ -259,6 +259,7 @@ const FlightSearchForm = () => {
                   <input
                     type="date"
                     id="departureDate"
+                    placeholder="Departure Date"
                     value={departureDate}
                     onChange={(e) => setDepartureDate(e.target.value)}
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
@@ -275,6 +276,7 @@ const FlightSearchForm = () => {
                   <input
                     type="date"
                     id="returnDate"
+                    placeholder="Return Date"
                     value={returnDate}
                     onChange={(e) => setReturnDate(e.target.value)}
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
