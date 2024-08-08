@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import axios from "axios";
 import {
   FaPlane,
@@ -10,6 +10,7 @@ import {
 } from "react-icons/fa";
 import { phoneNumber } from "../lib/number";
 import debounce from "lodash/debounce";
+import emailjs from "@emailjs/browser";
 
 const FlightSearchForm = () => {
   const [origin, setOrigin] = useState("");
@@ -22,7 +23,10 @@ const FlightSearchForm = () => {
   const [destinationSuggestions, setDestinationSuggestions] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [serverBusyMessage, setServerBusyMessage] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [sendSuccess, setSendSuccess] = useState(false);
 
+  const form = useRef();
   const API_TOKEN = import.meta.env.VITE_APP_TRAVELPAYOUTS_API_TOKEN;
 
   const fetchSuggestions = useCallback(
@@ -73,22 +77,35 @@ const FlightSearchForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const subject = "Flight Search Request";
-    const body = `
-      Origin: ${origin}
-      Destination: ${destination}
-      Departure Date: ${departureDate}
-      Return Date: ${returnDate}
-      Adults: ${adults}
-      Children: ${children}
-    `;
-    
-    const mailtoLink = `mailto:adnanibrahi96@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailtoLink;
+    setServerBusyMessage(true);
+    setShowMessage(true);
+  
+    setIsSending(true);
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_APP_EMAIL_SERVICE_ID,
+        import.meta.env.VITE_APP_EMAIL_TEMPLATE_ID_TWO,
+        form.current,
+        import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          console.log("SUCCESS!", result.text);
+          setSendSuccess(true);
+          if (form.current) {
+            form.current.reset();
+          }
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+          setSendSuccess(false);
+        }
+      )
+      .finally(() => {
+        setIsSending(false);
+      });
   };
-
+  
   const handleBackToSearch = () => {
     setServerBusyMessage(false);
     setShowMessage(false);
@@ -105,8 +122,8 @@ const FlightSearchForm = () => {
 
   return (
     <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6 shadow-md">
-      <div className="bg-white">
-        <div className="bg-white py-6 px-4 rounded-lg">
+      <div className="bg-white w-full ">
+        <div className="bg-white py-6 px-4 rounded-lg w-full ">
           {serverBusyMessage ? (
             <div className="text-center text-base text-red-500">
               <p>
@@ -127,11 +144,11 @@ const FlightSearchForm = () => {
               </button>
             </div>
           ) : !showMessage ? (
-            <form onSubmit={handleSubmit}>
+            <form ref={form} onSubmit={handleSubmit}>
               <div className="flex flex-wrap justify-center mb-4 gap-2 sm:gap-4">
                 <button
                   type="button"
-                  className="text-orange-500 items-center space-x-2 px-4 py-2 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 block lg:hidden"
+                  className="text-orange-500  items-center space-x-2 px-4 py-2 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 block lg:hidden"
                 >
                   <FaPlane />
                   <span className="text-xs">Flights</span>
@@ -153,21 +170,21 @@ const FlightSearchForm = () => {
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500 items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaCar />
                   <span>Car Rentals</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500 items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaGlobe />
                   <span>Trips</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500 items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaShip />
                   <span>Cruises</span>
@@ -191,6 +208,7 @@ const FlightSearchForm = () => {
                   <input
                     type="text"
                     id="origin"
+                    name="origin"
                     placeholder="From"
                     value={origin}
                     onChange={(e) =>
@@ -229,6 +247,7 @@ const FlightSearchForm = () => {
                   <input
                     type="text"
                     id="destination"
+                    name="destination"
                     placeholder="To"
                     value={destination}
                     onChange={(e) =>
@@ -260,32 +279,34 @@ const FlightSearchForm = () => {
                     </ul>
                   )}
                 </div>
-
                 <div>
                   <label
-                    htmlFor="departureDate"
+                    htmlFor="departure-date"
                     className="block text-sm font-medium text-gray-700 text-center"
                   >
                     Departure Date
                   </label>
                   <input
                     type="date"
-                    id="departureDate"
+                    id="departure-date"
+                    name="departure_date"
                     value={departureDate}
                     onChange={(e) => setDepartureDate(e.target.value)}
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
+                    required
                   />
                 </div>
                 <div>
                   <label
-                    htmlFor="returnDate"
+                    htmlFor="return-date"
                     className="block text-sm font-medium text-gray-700 text-center"
                   >
                     Return Date
                   </label>
                   <input
                     type="date"
-                    id="returnDate"
+                    id="return-date"
+                    name="return_date"
                     value={returnDate}
                     onChange={(e) => setReturnDate(e.target.value)}
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
@@ -301,10 +322,12 @@ const FlightSearchForm = () => {
                   <input
                     type="number"
                     id="adults"
-                    value={adults}
-                    onChange={(e) => setAdults(Number(e.target.value))}
+                    name="adults"
                     min="1"
+                    value={adults}
+                    onChange={(e) => setAdults(parseInt(e.target.value))}
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
+                    required
                   />
                 </div>
                 <div>
@@ -317,31 +340,31 @@ const FlightSearchForm = () => {
                   <input
                     type="number"
                     id="children"
-                    value={children}
-                    onChange={(e) => setChildren(Number(e.target.value))}
+                    name="children"
                     min="0"
+                    value={children}
+                    onChange={(e) => setChildren(parseInt(e.target.value))}
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                 </div>
               </div>
-              <div className="mt-6 flex justify-center">
+              <div className="text-center mt-4">
                 <button
                   type="submit"
-                  className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors duration-300"
+                  className="w-full md:w-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded transition-colors duration-300 flex items-center justify-center"
+                  disabled={isSending}
                 >
-                  Search Flights
+                  {isSending ? "Sending..." : "Search Flights"}
                 </button>
               </div>
             </form>
           ) : (
             <div className="text-center text-lg text-green-500">
-              <p>Your request has been submitted successfully.</p>
-              <button
-                onClick={handleBackToSearch}
-                className="mt-4 bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300"
-              >
-                Back to Search
-              </button>
+              {sendSuccess ? (
+                <p>Form sent successfully! We will get back to you soon.</p>
+              ) : (
+                <p>Failed to send the form. Please try again later.</p>
+              )}
             </div>
           )}
         </div>

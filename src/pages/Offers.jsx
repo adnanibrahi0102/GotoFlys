@@ -8,6 +8,7 @@ import {
   FaSwimmer,
 } from "react-icons/fa";
 import { phoneNumber } from "../lib/number";
+import FlightSearchForm from "../components/FlightSearchForm";
 const Offers = () => {
   const offersData = [
     {
@@ -103,7 +104,13 @@ const Offers = () => {
           </a>
         </div>
       </div>
-      <div className="  bg-gradient-to-r from-orange-500 to-purple-600 py-6">
+      <div className="bg-gradient-to-r from-orange-500 to-purple-600 ">
+        <h1 className="text-center text-2xl font-mono">Book Your Flights at Cheap Prices</h1>
+      <FlightSearchForm/>
+      </div>
+      
+
+      {/* <div className="  bg-gradient-to-r from-orange-500 to-purple-600 py-6">
         <div className="container mx-auto px-4">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <form>
@@ -218,7 +225,7 @@ const Offers = () => {
             </form>
           </div>
         </div>
-      </div>
+      </div> */}
       <section className="py-12">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8 text-center">Special Offers</h2>
