@@ -104,8 +104,8 @@ const Offers = () => {
           </a>
         </div>
       </div>
-      <div className="bg-gradient-to-r from-orange-500 to-purple-600 ">
-        <h1 className="text-center text-2xl font-mono">Book Your Flights at Cheap Prices</h1>
+      <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6 px-4 ">
+        <h1 className="text-center text-2xl font-mono mb-2">Book Your Flights at Cheap Prices</h1>
       <FlightSearchForm/>
       </div>
       

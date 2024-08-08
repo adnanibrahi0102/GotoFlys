@@ -121,7 +121,7 @@ const FlightSearchForm = () => {
   );
 
   return (
-    <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6 shadow-md">
+    <div className="bg-gradient-to-r from-orange-500 to-purple-600  shadow-md">
       <div className="bg-white w-full ">
         <div className="bg-white py-6 px-4 rounded-lg w-full ">
           {serverBusyMessage ? (
@@ -197,7 +197,7 @@ const FlightSearchForm = () => {
                   <span>Activities</span>
                 </button>
               </div>
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 ">
                 <div className="relative">
                   <label
                     htmlFor="origin"
