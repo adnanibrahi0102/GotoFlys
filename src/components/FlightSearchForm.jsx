@@ -73,8 +73,20 @@ const FlightSearchForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setServerBusyMessage(true);
-    setShowMessage(true);
+
+    const subject = "Flight Search Request";
+    const body = `
+      Origin: ${origin}
+      Destination: ${destination}
+      Departure Date: ${departureDate}
+      Return Date: ${returnDate}
+      Adults: ${adults}
+      Children: ${children}
+    `;
+    
+    const mailtoLink = `mailto:adnanibrahi96@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailtoLink;
   };
 
   const handleBackToSearch = () => {
@@ -93,8 +105,8 @@ const FlightSearchForm = () => {
 
   return (
     <div className="bg-gradient-to-r from-orange-500 to-purple-600 py-6 shadow-md">
-      <div className="bg-white ">
-        <div className="bg-white py-6 px-4 rounded-lg ">
+      <div className="bg-white">
+        <div className="bg-white py-6 px-4 rounded-lg">
           {serverBusyMessage ? (
             <div className="text-center text-base text-red-500">
               <p>
@@ -119,7 +131,7 @@ const FlightSearchForm = () => {
               <div className="flex flex-wrap justify-center mb-4 gap-2 sm:gap-4">
                 <button
                   type="button"
-                  className="text-orange-500  items-center space-x-2 px-4 py-2 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 block lg:hidden"
+                  className="text-orange-500 items-center space-x-2 px-4 py-2 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 block lg:hidden"
                 >
                   <FaPlane />
                   <span className="text-xs">Flights</span>
@@ -141,21 +153,21 @@ const FlightSearchForm = () => {
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                  className="text-orange-500 items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaCar />
                   <span>Car Rentals</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                  className="text-orange-500 items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaGlobe />
                   <span>Trips</span>
                 </button>
                 <button
                   type="button"
-                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
+                  className="text-orange-500 items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
                 >
                   <FaShip />
                   <span>Cruises</span>
@@ -249,7 +261,7 @@ const FlightSearchForm = () => {
                   )}
                 </div>
 
-                <div className="relative">
+                <div>
                   <label
                     htmlFor="departureDate"
                     className="block text-sm font-medium text-gray-700 text-center"
@@ -259,14 +271,12 @@ const FlightSearchForm = () => {
                   <input
                     type="date"
                     id="departureDate"
-                    placeholder="Departure Date"
                     value={departureDate}
                     onChange={(e) => setDepartureDate(e.target.value)}
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                 </div>
-
-                <div className="relative ">
+                <div>
                   <label
                     htmlFor="returnDate"
                     className="block text-sm font-medium text-gray-700 text-center"
@@ -276,14 +286,12 @@ const FlightSearchForm = () => {
                   <input
                     type="date"
                     id="returnDate"
-                    placeholder="Return Date"
                     value={returnDate}
                     onChange={(e) => setReturnDate(e.target.value)}
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                 </div>
-
-                <div className="relative">
+                <div>
                   <label
                     htmlFor="adults"
                     className="block text-sm font-medium text-gray-700 text-center"
@@ -294,13 +302,12 @@ const FlightSearchForm = () => {
                     type="number"
                     id="adults"
                     value={adults}
-                    onChange={(e) => setAdults(e.target.value)}
+                    onChange={(e) => setAdults(Number(e.target.value))}
                     min="1"
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                 </div>
-
-                <div className="relative">
+                <div>
                   <label
                     htmlFor="children"
                     className="block text-sm font-medium text-gray-700 text-center"
@@ -311,33 +318,24 @@ const FlightSearchForm = () => {
                     type="number"
                     id="children"
                     value={children}
-                    onChange={(e) => setChildren(e.target.value)}
+                    onChange={(e) => setChildren(Number(e.target.value))}
                     min="0"
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
                   />
                 </div>
               </div>
-              <div className="flex justify-center mt-4">
+              <div className="mt-6 flex justify-center">
                 <button
                   type="submit"
                   className="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors duration-300"
                 >
-                  Search
+                  Search Flights
                 </button>
               </div>
             </form>
           ) : (
-            <div className="text-center">
-              <p>
-                Our servers are busy. Please call{" "}
-                <a
-                  href={`tel:${phoneNumber}`}
-                  className="inline-flex h-8 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-4 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
-                >
-                  {phoneNumber}
-                </a>{" "}
-                for assistance.
-              </p>
+            <div className="text-center text-lg text-green-500">
+              <p>Your request has been submitted successfully.</p>
               <button
                 onClick={handleBackToSearch}
                 className="mt-4 bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300"
