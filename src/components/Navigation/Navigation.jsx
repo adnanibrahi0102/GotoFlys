@@ -29,7 +29,7 @@ const Navigation = () => {
 
       <header
         className={`sticky top-0 left-0 right-0 z-50 transition-all duration-400 ease-in-out  ${
-          isScrolled ? "h-[120px] translate-y-[-10px]" : "h-[145px] hidden md:block"
+          isScrolled ? "h-[120px] translate-y-[-10px]" : "h-[145px] "
         }`}
       >
         {/* changed thisand put this into layout ! commentend here for future use */}

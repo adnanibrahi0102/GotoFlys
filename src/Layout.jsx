@@ -7,9 +7,11 @@ import TopBanner from "./components/TopCallBanner";
 const Layout = () => {
   return (
     <>
-    
-      <Navigation />
-      <TopBanner/>
+      <div className="hidden md:block">
+        <Navigation />
+      </div>
+
+      <TopBanner />
       <Outlet />
       <Footer />
     </>
