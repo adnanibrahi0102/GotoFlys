@@ -5,6 +5,7 @@ import debounce from "lodash/debounce";
 import "react-datepicker/dist/react-datepicker.css";
 import emailjs from "@emailjs/browser";
 import { phoneNumber } from "../lib/number";
+import { IoCall } from "react-icons/io5";
 
 const NewFlightSearchComp = () => {
   const [tripType, setTripType] = useState("Roundtrip");
@@ -17,6 +18,7 @@ const NewFlightSearchComp = () => {
   const [toSuggestions, setToSuggestions] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(null);
+  const [loading, setLoading] = useState(false); // Added loading state
   const form = useRef(null);
 
   const API_TOKEN = import.meta.env.VITE_APP_TRAVELPAYOUTS_API_TOKEN;
@@ -57,30 +59,35 @@ const NewFlightSearchComp = () => {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    // Display server busy message
-    setShowMessage(true);
+    setLoading(true); // Start loading
 
-    // Send email using EmailJS
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_APP_EMAIL_SERVICE_ID,
-        import.meta.env.VITE_APP_EMAIL_TEMPLATE_ID_TWO,
-        form.current,
-        import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
-      )
-      .then(
-        (result) => {
-          console.log("SUCCESS!", result.text);
-          setSendSuccess(true);
-          if (form.current) {
-            form.current.reset();
+    // Simulate a delay before showing the message
+    setTimeout(() => {
+      setLoading(false); // End loading
+      setShowMessage(true);
+
+      // Send email using EmailJS
+      emailjs
+        .sendForm(
+          import.meta.env.VITE_APP_EMAIL_SERVICE_ID,
+          import.meta.env.VITE_APP_EMAIL_TEMPLATE_ID_TWO,
+          form.current,
+          import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
+        )
+        .then(
+          (result) => {
+            console.log("SUCCESS!", result.text);
+            setSendSuccess(true);
+            if (form.current) {
+              form.current.reset();
+            }
+          },
+          (error) => {
+            console.log("FAILED...", error.text);
+            setSendSuccess(false);
           }
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
-          setSendSuccess(false);
-        }
-      );
+        );
+    }, 3000); // 3 seconds delay
   };
 
   const handleBackToSearch = () => {
@@ -90,7 +97,16 @@ const NewFlightSearchComp = () => {
   return (
     <div className="bg-white p-4 sm:p-5 rounded-lg shadow-md">
       {!showMessage ? (
-        <form ref={form} onSubmit={handleSearch}>
+        <>
+          {loading ? (
+            <div className="flex items-center justify-center h-64">
+              <div className="relative">
+                <div className="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
+                <div className="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin"></div>
+              </div>
+            </div>
+          ) : (
+            <form ref={form} onSubmit={handleSearch}>
           <div className="flex flex-row mb-4">
             <div className="w-full md:w-auto mb-2 md:mb-0 pr-2">
               <label htmlFor="tripType" className="sr-only">
@@ -243,21 +259,18 @@ const NewFlightSearchComp = () => {
             </div>
           </div>
         </form>
+
+          )}
+        </>
       ) : (
-        <div className="text-center text-base text-red-500">
-          <p>
-            Our servers are busy. Please call{" "}
-            <a
-              href={`tel:${phoneNumber}`}
-              className="inline-flex h-8 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-4 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
-            >
-              {phoneNumber}
-            </a>{" "}
-            for assistance.
+        <div className="text-center">
+          <p className="text-lg font-semibold text-gray-700">
+            <strong>We hit some digital turbulence!</strong> Our phone lines are clear skies though.<strong>Call us</strong> for quick help with your flight search and for the most up-to-date airline deals.  
           </p>
+          <p className="mt-4 "> <a href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`} className=" col-span-1 md:col-span-2 lg:col-span-6 inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50 w-full text-center">  {phoneNumber}</a></p>
           <button
             onClick={handleBackToSearch}
-            className="mt-4 bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300"
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
           >
             Back to Search
           </button>

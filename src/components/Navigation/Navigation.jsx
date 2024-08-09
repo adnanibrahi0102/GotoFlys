@@ -3,7 +3,7 @@ import { FaBars, FaSearch } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
 import TopBar from "./TopBar";
 import { Link } from "react-router-dom";
-import TopBanner from "../TopCallBanner";
+
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -29,12 +29,13 @@ const Navigation = () => {
 
       <header
         className={`sticky top-0 left-0 right-0 z-50 transition-all duration-400 ease-in-out  ${
-          isScrolled ? "h-[120px] translate-y-[-10px]" : "h-[145px]"
+          isScrolled ? "h-[120px] translate-y-[-10px]" : "h-[145px] hidden md:block"
         }`}
       >
-        <div className="mt-2 mb-4 sm:mt-0 sm:mb-0">
+        {/* changed thisand put this into layout ! commentend here for future use */}
+        {/* <div className="mt-2 mb-4 sm:mt-0 sm:mb-0">
           <TopBanner />
-        </div>
+        </div> */}
 
         <nav
           className={` ${

@@ -2,20 +2,24 @@ import React from "react";
 import { phoneNumber } from "../lib/number";
 import { PiAirplaneTiltFill } from "react-icons/pi";
 import { IoCall } from "react-icons/io5";
+import MobileNavigation from "./Navigation/MobileNavigation";
+
 
 
 const SupportBanner = () => {
   return (
     <div className="relative">
+      
       {/* Top Text Section */}
-      <div className="bg-gradient-to-r from-orange-400 to-purple-600 text-black p-3 text-center flex flex-col md:flex-row justify-around">
+      <div className="bg-gradient-to-r from-orange-400 to-purple-600 text-black p-3 text-center flex flex-col md:flex-row justify-around mt-12 md:mt-0">
         <div className="flex items-center mb-4 md:mb-0">
           <PiAirplaneTiltFill className="text-2xl md:text-3xl mr-2 md:mr-4 ml-5 text-black" />
           <h2 className="text-xl md:text-3xl font-bold text-black">
             Airtickets Reservation Online
           </h2>
+          <MobileNavigation/>
         </div>
-
+         
         <div className="flex flex-col md:flex-row justify-center items-center">
           <div className="text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-2 text-black">
