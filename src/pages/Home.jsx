@@ -25,7 +25,7 @@ const Home = () => {
       {/* FlightSearchForm should appear at the top on mobile devices */}
       <div className="block md:hidden bg-gradient-to-r from-orange-500 to-purple-600 p-6">
 
-        <h1 className="text-center text-2xl mb-2 font-mono">Book Your Flights at Cheap Prices</h1>
+        {/* <h1 className="text-center text-2xl mb-2 font-mono">Book Your Flights at Cheap Prices</h1> */}
         {/* <FlightSearchForm /> */}
         <NewFlightSearchComp/>
         

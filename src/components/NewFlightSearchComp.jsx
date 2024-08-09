@@ -91,7 +91,7 @@ const NewFlightSearchComp = () => {
     <div className="bg-white p-4 sm:p-5 rounded-lg shadow-md">
       {!showMessage ? (
         <form ref={form} onSubmit={handleSearch}>
-          <div className="flex flex-wrap mb-4">
+          <div className="flex flex-row mb-4">
             <div className="w-full md:w-auto mb-2 md:mb-0 pr-2">
               <label htmlFor="tripType" className="sr-only">
                 Trip Type
@@ -100,7 +100,7 @@ const NewFlightSearchComp = () => {
                 id="tripType"
                 value={tripType}
                 onChange={(e) => setTripType(e.target.value)}
-                className="w-full md:w-auto px-4 py-2 border rounded-md"
+                className="w-full md:w-auto px-4 py-3 border rounded-md"
               >
                 <option value="Roundtrip">Roundtrip</option>
                 <option value="One Way">One Way</option>
@@ -116,7 +116,7 @@ const NewFlightSearchComp = () => {
                 id="adults"
                 value={adults}
                 onChange={(e) => setAdults(e.target.value)}
-                className="w-full md:w-auto px-4 py-2 border rounded-md"
+                className="w-full md:w-auto px-4 py-3 border rounded-md"
               >
                 {[...Array(10).keys()].map((num) => (
                   <option key={num + 1} value={num + 1}>
@@ -128,9 +128,11 @@ const NewFlightSearchComp = () => {
           </div>
 
           {/* Input Fields and Button */}
+          
           <div className="flex flex-wrap gap-2 md:gap-4 justify-center md:justify-between p-2 md:p-3">
             {/* From */}
-            <div className="relative flex-1 min-w-[200px] md:pr-2">
+            <div className="flex flex-row gap-1">
+            <div className="relative flex-1 min-w-[100px] md:pr-2">
               <label
                 htmlFor="from"
                 className="absolute top-1 left-1 bg-white px-1 text-sm font-bold text-black"
@@ -169,7 +171,7 @@ const NewFlightSearchComp = () => {
             </div>
 
             {/* To */}
-            <div className="relative flex-1 min-w-[200px] md:pr-2">
+            <div className="relative flex-1 min-w-[100px] md:pr-2">
               <label
                 htmlFor="to"
                 className="absolute top-1 left-1 bg-white px-1 text-sm font-bold text-black"
@@ -203,6 +205,7 @@ const NewFlightSearchComp = () => {
                   ))}
                 </ul>
               )}
+            </div>
             </div>
 
             {/* Dates */}
