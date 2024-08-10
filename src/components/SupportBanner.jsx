@@ -11,7 +11,7 @@ const SupportBanner = () => {
     <div className="relative">
       
       {/* Top Text Section */}
-      <div className="bg-gradient-to-r from-orange-400 to-purple-600 text-black  text-center flex flex-col md:flex-row justify-around mt-12 md:mt-0">
+      <div className="bg-gradient-to-r from-orange-400 to-purple-400 text-black  text-center flex flex-col md:flex-row justify-around mt-12 md:mt-0">
         <div className="flex items-center mb-0 md:mb-0 gap-4  ">
           <PiAirplaneTiltFill className="text-2xl md:text-3xl ml-1 md:mr-7  mt-5 text-black text-center" />
           <div className="flex gap-6 items-center justify-between w-full">
@@ -22,7 +22,7 @@ const SupportBanner = () => {
           </div>
         </div>
         
-            <p className="text-sm md:text-lg text-black flex items-center justify-center mr-3 ">
+            <p className="text-sm md:text-lg text-black flex items-center justify-center mr-4 ">
               Accredited Travel Services
             </p>
          
