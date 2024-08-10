@@ -67,7 +67,7 @@ const SupportBanner = () => {
       </div>
 
       {/* Text Section for Mobile */}
-      <div className="md:hidden text-left p-6 bg-gradient-to-r from-orange-500 to-purple-600 text-black">
+      <div className="md:hidden text-left p-6 bg-gradient-to-r from-orange-400 to-purple-400 text-black">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
           24/7 Airline <br /> Reservations &<br /> Support Desk
         </h1>
