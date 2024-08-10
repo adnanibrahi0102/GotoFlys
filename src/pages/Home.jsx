@@ -17,33 +17,34 @@ import SupportBanner from "../components/SupportBanner";
 const Home = () => {
   return (
     <div>
-      <div className="">
-        {/* it was first ui */}
-        {/* <Carasoul /> */} 
-        <SupportBanner/>
+      {/* SupportBanner component is visible only on mobile devices */}
+      <div className="block md:hidden">
+        <SupportBanner />
       </div>
-      {/* FlightSearchForm should appear at the top on mobile devices */}
+
+      {/* Carasoul component is visible only on medium and larger screens */}
+      <div className="hidden md:block">
+        <Carasoul />
+      </div>
+
+      {/* NewFlightSearchComp component is visible at the top on mobile devices */}
       <div className="block md:hidden bg-gradient-to-r from-orange-500 to-purple-600 p-6">
-
-        {/* <h1 className="text-center text-2xl mb-2 font-mono">Book Your Flights at Cheap Prices</h1> */}
-        {/* <FlightSearchForm /> */}
-        <NewFlightSearchComp/>
-        
+        {/* Flight search component designed specifically for mobile devices */}
+        <NewFlightSearchComp />
       </div>
 
-      
-
+      {/* FlightCard component is visible only on mobile devices */}
       <div className="block md:hidden">
         <FlightCard />
       </div>
 
-      {/* FlightSearchForm should appear below Carasoul on larger screens */}
+      {/* FlightSearchForm component is visible below the Carasoul on medium and larger screens */}
       <div className="hidden md:block bg-gradient-to-r from-orange-500 to-purple-600 p-6">
         <h1 className="text-center text-2xl mb-2 font-mono">Book Your Flights at Cheap Prices</h1>
-        {/* <FlightSearchForm /> */}
-        <NewFlightSearchComp/>
+        <FlightSearchForm />
       </div>
 
+      {/* The following components are displayed on all screen sizes */}
       <Booking />
       <CTA />
       <Offers />

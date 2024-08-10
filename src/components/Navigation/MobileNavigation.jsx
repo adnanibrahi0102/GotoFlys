@@ -14,7 +14,7 @@ const MobileNavigation = () => {
     <header className="md:hidden sticky top-0 left-0 right-0 z-50">
       <nav className="bg-transparent opacity-90 py-1 px-2 flex items-center justify-between ">
         <div className="relative">
-          <button onClick={toggleMenu} className="text-white mt-2 ">
+          <button onClick={toggleMenu} className="text-black mt-2 ">
             <FaBars size={24} />
           </button>
           {isMenuOpen && (

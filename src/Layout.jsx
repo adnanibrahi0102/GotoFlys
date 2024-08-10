@@ -10,7 +10,6 @@ const Layout = () => {
       <div className="hidden md:block">
         <Navigation />
       </div>
-
       <TopBanner />
       <Outlet />
       <Footer />
