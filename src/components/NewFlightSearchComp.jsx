@@ -10,6 +10,8 @@ import { IoCall } from "react-icons/io5";
 const NewFlightSearchComp = () => {
   const [tripType, setTripType] = useState("Roundtrip");
   const [adults, setAdults] = useState(1);
+  const [passengerName, setPassengerName] = useState(""); // New State for Passenger Name
+  const [phone, setPhone] = useState(""); // New State for Phone Number
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [startDate, setStartDate] = useState(null);
@@ -57,45 +59,63 @@ const NewFlightSearchComp = () => {
     setSuggestions([]);
   };
 
-  const handleSearch = (event) => {
-    event.preventDefault();
-    setLoading(true); // Start loading
+  const formatDate = (date) => date ? date.toLocaleDateString('en-US') : '';
 
-    // Simulate a delay before showing the message
-    setTimeout(() => {
-      setLoading(false); // End loading
-      setShowMessage(true);
+const handleSearch = (event) => {
+  event.preventDefault();
+  setLoading(true); // Start loading
 
-      // Send email using EmailJS
-      emailjs
-        .sendForm(
-          import.meta.env.VITE_APP_EMAIL_SERVICE_ID,
-          import.meta.env.VITE_APP_EMAIL_TEMPLATE_ID_TWO,
-          form.current,
-          import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
-        )
-        .then(
-          (result) => {
-            console.log("SUCCESS!", result.text);
-            setSendSuccess(true);
-            if (form.current) {
-              form.current.reset();
-            }
-          },
-          (error) => {
-            console.log("FAILED...", error.text);
-            setSendSuccess(false);
+  // Simulate a delay before showing the message
+  setTimeout(() => {
+    setLoading(false); // End loading
+    setShowMessage(true);
+
+    const formattedStartDate = formatDate(startDate);
+    const formattedEndDate = formatDate(endDate);
+
+    console.log("Form Data:", {
+      tripType,
+      adults,
+      passengerName,
+      phone,
+      from,
+      to,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
+    });
+
+    // Send email using EmailJS
+    emailjs
+      .sendForm(
+        import.meta.env.VITE_APP_EMAIL_SERVICE_ID,
+        import.meta.env.VITE_APP_EMAIL_TEMPLATE_ID_TWO,
+        form.current || document.querySelector('form'),
+        import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          console.log("SUCCESS!", result.text);
+          setSendSuccess(true);
+          if (form.current) {
+            form.current.reset();
           }
-        );
-    }, 3000); // 3 seconds delay
-  };
+        },
+        (error) => {
+          console.error("FAILED...", error);
+          setSendSuccess(false);
+        }
+      );
+  }, 3000); // 3 seconds delay
+};
+
+  
 
   const handleBackToSearch = () => {
     setShowMessage(false);
   };
 
   return (
-    <div className="bg-white p-4 sm:p-5 rounded-lg shadow-md">
+    <div className="bg-white p-3 sm:p-5 rounded-lg shadow-md">
       {!showMessage ? (
         <>
           {loading ? (
@@ -107,7 +127,7 @@ const NewFlightSearchComp = () => {
             </div>
           ) : (
             <form ref={form} onSubmit={handleSearch}>
-          <div className="flex flex-row mb-4">
+          <div className="flex flex-row mb-1">
             <div className="w-full md:w-auto mb-2 md:mb-0 pr-2">
               <label htmlFor="tripType" className="sr-only">
                 Trip Type
@@ -142,6 +162,36 @@ const NewFlightSearchComp = () => {
               </select>
             </div>
           </div>
+           {/* Passenger Name and Phone Number */}
+           <div className="flex flex-row md:flex-row mb-1">
+                <div className="w-full md:w-auto mb-1 md:mb-0 pr-2">
+                  <label htmlFor="passengerName" className="sr-only">
+                    Passenger Name
+                  </label>
+                  <input
+                    id="passengerName"
+                    type="text"
+                    value={passengerName}
+                    onChange={(e) => setPassengerName(e.target.value)}
+                    placeholder="Passenger Name"
+                    className="w-full md:w-auto px-4 py-3 border rounded-md"
+                  />
+                </div>
+
+                <div className="w-full md:w-auto mb-1 md:mb-0 pr-2">
+                  <label htmlFor="phone" className="sr-only">
+                    Phone Number
+                  </label>
+                  <input
+                    id="phone"
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Phone Number"
+                    className="w-full md:w-auto px-4 py-3 border rounded-md"
+                  />
+                </div>
+              </div>
 
           {/* Input Fields and Button */}
           
@@ -249,7 +299,7 @@ const NewFlightSearchComp = () => {
             </div>
 
             {/* Search Button */}
-            <div className="flex-1 min-w-[200px] mt-2 md:mt-0">
+            <div className="flex-1 min-w-[200px] mt-1 md:mt-0">
               <button
                 type="submit"
                 className="w-full px-4 py-3 md:py-7 bg-orange-500 hover:bg-orange-600 text-black text-lg md:text-2xl rounded-md font-semibold"
