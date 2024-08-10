@@ -37,7 +37,7 @@ const SupportBanner = () => {
       {/* Background Image Section */}
       <div className="relative">
         <div
-          className=" bg-contain min-h-[300px] md:min-h-[400px] md:hidden"
+          className=" bg-cover min-h-[250px] md:min-h-[400px] md:hidden"
           style={{
             backgroundImage:
               "url(https://images.pexels.com/photos/11644225/pexels-photo-11644225.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
