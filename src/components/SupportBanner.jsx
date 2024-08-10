@@ -14,10 +14,12 @@ const SupportBanner = () => {
       <div className="bg-gradient-to-r from-orange-400 to-purple-600 text-black p-3 text-center flex flex-col md:flex-row justify-around mt-12 md:mt-0">
         <div className="flex items-center mb-0 md:mb-0 gap-4">
           <PiAirplaneTiltFill className="text-xl md:text-3xl  md:mr-4 ml-5 text-black" />
-          <h2 className="text-base md:text-3xl font-bold text-black">
+          <div className="flex gap-6 items-center justify-between w-full">
+          <h2 className="text-base md:text-3xl font-bold text-black ">
             Airtickets Reservation Online
           </h2>
           <MobileNavigation/>
+          </div>
         </div>
          
         <div className="flex flex-col md:flex-row justify-center items-center">
