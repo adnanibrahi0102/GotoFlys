@@ -11,36 +11,29 @@ const SupportBanner = () => {
     <div className="relative">
       
       {/* Top Text Section */}
-      <div className="bg-gradient-to-r from-orange-400 to-purple-600 text-black p-3 text-center flex flex-col md:flex-row justify-around mt-12 md:mt-0">
+      <div className="bg-gradient-to-r from-orange-400 to-purple-600 text-black  text-center flex flex-col md:flex-row justify-around mt-12 md:mt-0">
         <div className="flex items-center mb-0 md:mb-0 gap-4">
-          <PiAirplaneTiltFill className="text-xl md:text-3xl  md:mr-4 ml-5 text-black" />
+          <PiAirplaneTiltFill className="text-xl md:text-3xl  md:mr-4 ml-5 mt-1 text-black" />
           <div className="flex gap-6 items-center justify-between w-full">
-          <h2 className="text-base md:text-3xl font-bold text-black ">
-            Airtickets Reservation Online
-          </h2>
+          <h2 className="text-xl md:text-3xl font-bold mt-1 text-black">
+              Skywayfares
+            </h2>
           <MobileNavigation/>
           </div>
         </div>
-         
-        <div className="flex flex-col md:flex-row justify-center items-center">
-          <div className="text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-2 text-black">
-              Skywayfares
-            </h2>
-            <p className="text-base md:text-lg text-black">
+            <p className="text-sm md:text-lg text-black flex items-center justify-center">
               Accredited Travel Services
             </p>
-          </div>
-        </div>
+         
       </div>
 
       {/* Background Image Section */}
       <div className="relative">
         <div
-          className=" bg-cover min-h-[250px] md:min-h-[400px] md:hidden"
+          className=" bg-cover min-h-[200px] md:min-h-[400px] md:hidden"
           style={{
             backgroundImage:
-              "url(https://images.pexels.com/photos/11644225/pexels-photo-11644225.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
+              "url(https://images.pexels.com/photos/210199/pexels-photo-210199.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
 
           }}
         ></div>
