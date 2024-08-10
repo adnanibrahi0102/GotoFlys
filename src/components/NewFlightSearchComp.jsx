@@ -213,7 +213,7 @@ const handleSearch = (event) => {
                   handleInputChange(e, setFrom, setFromSuggestions)
                 }
                 placeholder="New York, NY"
-                className="w-full px-2 py-6 border rounded-md"
+                className="w-full px-2 py-5 border rounded-md"
               />
               {fromSuggestions.length > 0 && (
                 <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
@@ -250,7 +250,7 @@ const handleSearch = (event) => {
                 value={to}
                 onChange={(e) => handleInputChange(e, setTo, setToSuggestions)}
                 placeholder="Miami, FL"
-                className="w-full px-2 py-6 border rounded-md"
+                className="w-full px-2 py-5 border rounded-md"
               />
               {toSuggestions.length > 0 && (
                 <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
