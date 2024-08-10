@@ -174,7 +174,7 @@ const handleSearch = (event) => {
                     value={passengerName}
                     onChange={(e) => setPassengerName(e.target.value)}
                     placeholder="Passenger Name"
-                    className="w-full md:w-auto px-4 py-3 border rounded-md"
+                    className="w-full md:w-auto px-2 py-3 border rounded-md"
                   />
                 </div>
 
@@ -188,7 +188,7 @@ const handleSearch = (event) => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Phone Number"
-                    className="w-full md:w-auto px-4 py-3 border rounded-md"
+                    className="w-full md:w-auto px-2 py-3 border rounded-md"
                   />
                 </div>
               </div>
@@ -213,7 +213,7 @@ const handleSearch = (event) => {
                   handleInputChange(e, setFrom, setFromSuggestions)
                 }
                 placeholder="New York, NY"
-                className="w-full px-2 py-8 border rounded-md"
+                className="w-full px-2 py-6 border rounded-md"
               />
               {fromSuggestions.length > 0 && (
                 <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
@@ -250,7 +250,7 @@ const handleSearch = (event) => {
                 value={to}
                 onChange={(e) => handleInputChange(e, setTo, setToSuggestions)}
                 placeholder="Miami, FL"
-                className="w-full px-2 py-8 border rounded-md"
+                className="w-full px-2 py-6 border rounded-md"
               />
               {toSuggestions.length > 0 && (
                 <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
@@ -294,7 +294,7 @@ const handleSearch = (event) => {
                 endDate={endDate}
                 selectsRange
                 placeholderText="08/09/2024-08/12/2024"
-                className="w-full px-14 py-8 border rounded-md sm:w-auto"
+                className="w-full px-14 py-6 border rounded-md sm:w-auto"
               />
             </div>
 
