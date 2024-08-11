@@ -28,7 +28,7 @@ const NewFlightSearchComp = () => {
   // Debounced fetchSuggestions function
   const fetchSuggestions = useCallback(
     debounce(async (query, setSuggestions) => {
-      if (query.length < 1) return;
+      if (query.length < 2) return;
       try {
         const response = await axios.get(
           `https://autocomplete.travelpayouts.com/places2?term=${query}&locale=en&types[]=city&types[]=airport&types[]=country`,
