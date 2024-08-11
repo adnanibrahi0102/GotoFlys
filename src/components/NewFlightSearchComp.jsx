@@ -49,7 +49,7 @@ const NewFlightSearchComp = () => {
         setSuggestions(response.data);
         console.log("Suggestions Updated:", response.data); // Log the updated suggestions
       } catch (error) {
-        console.error("Error fetching suggestions:", error); // Log errors during API call
+        console.error("Error fetching suggestions:", error?.response?.data || error.message || error);
         setSuggestions([]);
       }
     }, 300),
