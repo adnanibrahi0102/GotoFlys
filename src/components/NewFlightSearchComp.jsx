@@ -38,6 +38,7 @@ const NewFlightSearchComp = () => {
             },
           }
         );
+        console.log(response)
         setSuggestions(response.data);
       } catch (error) {
         console.error("Error fetching suggestions:", error);

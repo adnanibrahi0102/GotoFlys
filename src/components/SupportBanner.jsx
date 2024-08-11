@@ -30,7 +30,7 @@ const SupportBanner = () => {
           className=" bg-cover min-h-[200px] md:min-h-[400px] md:hidden"
           style={{
             backgroundImage:
-              "url(https://images.pexels.com/photos/210199/pexels-photo-210199.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
+              "url(https://images.pexels.com/photos/16141006/pexels-photo-16141006/free-photo-of-plane-of-bangkok-airways-with-lowered-landing-gear-in-flight.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
           }}
         ></div>
         <div
@@ -49,7 +49,7 @@ const SupportBanner = () => {
               We’ll beat any online ticket price.
             </p>
             <a
-              href={`tel:+18663302527`}
+              href={`tel:${phoneNumber}`}
               className="bg-orange-500 text-black font-bold py-4 px-8 md:py-6 md:px-16 rounded-lg hover:bg-orange-600 inline-block"
             >
               {phoneNumber}
