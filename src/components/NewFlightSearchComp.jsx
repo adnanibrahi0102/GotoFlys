@@ -28,7 +28,13 @@ const NewFlightSearchComp = () => {
   // Debounced fetchSuggestions function
   const fetchSuggestions = useCallback(
     debounce(async (query, setSuggestions) => {
-      if (query.length < 2) return;
+      console.log("Fetch Suggestions Called with Query:", query); // Log when fetchSuggestions is called
+  
+      if (query.length < 2) {
+        console.log("Query is too short, returning early."); // Log if the query is too short
+        return;
+      }
+  
       try {
         const response = await axios.get(
           `https://autocomplete.travelpayouts.com/places2?term=${query}&locale=en&types[]=city&types[]=airport&types[]=country`,
@@ -38,22 +44,29 @@ const NewFlightSearchComp = () => {
             },
           }
         );
-        console.log(response)
+        console.log("API Response:", response); // Log the API response
+  
         setSuggestions(response.data);
+        console.log("Suggestions Updated:", response.data); // Log the updated suggestions
       } catch (error) {
-        console.error("Error fetching suggestions:", error);
+        console.error("Error fetching suggestions:", error); // Log errors during API call
         setSuggestions([]);
       }
     }, 300),
     [API_TOKEN]
   );
-
+  
   // Handle input change and fetch suggestions
   const handleInputChange = (e, setValue, setSuggestions) => {
     const value = e.target.value;
+    console.log("Input Value:", value); // Log the value of the input
+  
     setValue(value);
+    console.log("Value set, fetching suggestions..."); // Log before calling fetchSuggestions
+  
     fetchSuggestions(value, setSuggestions);
   };
+  
 
   const handleClickSuggestion = (value, setValue, setSuggestions) => {
     setValue(value);
