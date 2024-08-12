@@ -3,11 +3,13 @@ import { phoneNumber } from "../lib/number";
 import { PiAirplaneTiltFill } from "react-icons/pi";
 import { IoCall } from "react-icons/io5";
 import MobileNavigation from "./Navigation/MobileNavigation";
+import HeaderForDesktop from "./Navigation/HeaderForDesktop";
 
 const SupportBanner = () => {
   return (
     <div className="relative">
       {/* Top Text Section */}
+      <HeaderForDesktop/>
       <div className="bg-gradient-to-r from-orange-400 to-purple-400 text-black text-center flex flex-col md:flex-row justify-around mt-12 md:mt-0 md:hidden">
         <div className="flex items-center mb-0 md:mb-0 gap-4  ">
           <PiAirplaneTiltFill className="text-2xl md:text-3xl ml-1 md:mr-7  mt-5 text-black text-center" />
@@ -34,10 +36,10 @@ const SupportBanner = () => {
           }}
         ></div>
         <div
-          className="hidden md:block relative bg-cover bg-center text-white p-6 flex flex-col justify-center min-h-[300px] md:min-h-[400px]"
+          className="hidden md:block relative bg-cover bg-center text-white p-6 m-10 flex flex-col justify-center min-h-[300px] md:min-h-[500px]"
           style={{
             backgroundImage:
-              "url(https://images.unsplash.com/photo-1529074963764-98f45c47344b?q=80&w=1486&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+              "url(https://images.unsplash.com/photo-1532973497172-04b34d604825?q=80&w=1460&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
           }}
         >
           <div className="absolute inset-0 bg-black opacity-50"></div>

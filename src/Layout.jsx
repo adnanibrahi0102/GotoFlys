@@ -8,7 +8,7 @@ const Layout = () => {
   return (
     <>
       <div className="hidden md:block">
-        <Navigation />
+        {/* <Navigation /> */}
       </div>
       <TopBanner />
       <Outlet />

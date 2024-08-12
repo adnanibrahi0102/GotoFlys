@@ -1,376 +1,331 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
-import axios from "axios";
-import {
-  FaPlane,
-  FaHotel,
-  FaCar,
-  FaGlobe,
-  FaShip,
-  FaSwimmer,
-} from "react-icons/fa";
-import { phoneNumber } from "../lib/number";
-import debounce from "lodash/debounce";
+import React, { useState, useRef } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import emailjs from "@emailjs/browser";
+import { phoneNumber } from "../lib/number";
+import iataData from "../lib/IATA.json";
 
-const FlightSearchForm = () => {
-  const [origin, setOrigin] = useState("");
-  const [destination, setDestination] = useState("");
-  const [departureDate, setDepartureDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
+const NewFlightSearchComp = () => {
+  const [tripType, setTripType] = useState("Roundtrip");
   const [adults, setAdults] = useState(1);
-  const [children, setChildren] = useState(0);
-  const [originSuggestions, setOriginSuggestions] = useState([]);
-  const [destinationSuggestions, setDestinationSuggestions] = useState([]);
+  const [passengerName, setPassengerName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [fromSuggestions, setFromSuggestions] = useState([]);
+  const [toSuggestions, setToSuggestions] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
-  const [serverBusyMessage, setServerBusyMessage] = useState(false);
-  const [isSending, setIsSending] = useState(false);
-  const [sendSuccess, setSendSuccess] = useState(false);
+  const [sendSuccess, setSendSuccess] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const form = useRef(null);
 
-  const form = useRef();
-  const API_TOKEN = import.meta.env.VITE_APP_TRAVELPAYOUTS_API_TOKEN;
+  // Function to filter suggestions based on query
+  const filterSuggestions = (query) => {
+    if (query.length < 2) {
+      return [];
+    }
+    return iataData.filter((item) =>
+      item.name_translations.en.toLowerCase().includes(query.toLowerCase())
+    );
+  };
 
-  const fetchSuggestions = useCallback(
-    debounce(async (query, setSuggestions) => {
-      if (query.length < 1) return;
-      try {
-        const response = await axios.get(
-          `https://autocomplete.travelpayouts.com/places2?term=${query}&locale=en&types[]=city&types[]=airport&types[]=country`,
+  // Handle input change and fetch suggestions from local data
+  const handleInputChange = (e, setValue, setSuggestions) => {
+    const value = e.target.value;
+    setValue(value);
+    setSuggestions(filterSuggestions(value));
+  };
+
+  const handleClickSuggestion = (value, setValue, setSuggestions) => {
+    setValue(value);
+    setSuggestions([]);
+  };
+
+  const formatDate = (date) => (date ? date.toLocaleDateString("en-US") : "");
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      setShowMessage(true);
+
+      const formattedStartDate = formatDate(startDate);
+      const formattedEndDate = formatDate(endDate);
+
+      emailjs
+        .send(
+          import.meta.env.VITE_APP_EMAIL_SERVICE_ID,
+          import.meta.env.VITE_APP_EMAIL_TEMPLATE_ID_TWO,
           {
-            headers: {
-              "X-Access-Token": API_TOKEN,
-            },
+            passengerName,
+            tripType,
+            from,
+            to,
+            startDate: formattedStartDate,
+            endDate: formattedEndDate,
+            adults,
+            phone,
+          },
+          import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
+        )
+        .then(
+          (result) => {
+            console.log("SUCCESS!", result.text);
+            setSendSuccess(true);
+            if (form.current) {
+              form.current.reset();
+            }
+          },
+          (error) => {
+            console.error("FAILED...", error);
+            setSendSuccess(false);
           }
         );
-        setSuggestions(response.data);
-      } catch (error) {
-        console.error("Error fetching suggestions:", error);
-        setSuggestions([]);
-      }
-    }, 300),
-    []
-  );
-
-  useEffect(() => {
-    fetchSuggestions(origin, setOriginSuggestions);
-  }, [origin, fetchSuggestions]);
-
-  useEffect(() => {
-    fetchSuggestions(destination, setDestinationSuggestions);
-  }, [destination, fetchSuggestions]);
-
-  const handleClickSuggestion = useCallback(
-    (value, setValue, setSuggestions) => {
-      setValue(value);
-      setSuggestions([]);
-    },
-    []
-  );
-
-  const handleInputChange = useCallback(
-    (e, setValue, setSuggestions) => {
-      const value = e.target.value;
-      setValue(value);
-      fetchSuggestions(value, setSuggestions);
-    },
-    [fetchSuggestions]
-  );
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setServerBusyMessage(true);
-    setShowMessage(true);
-  
-    setIsSending(true);
-    emailjs
-      .sendForm(
-        import.meta.env.VITE_APP_EMAIL_SERVICE_ID,
-        import.meta.env.VITE_APP_EMAIL_TEMPLATE_ID_TWO,
-        form.current,
-        import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
-      )
-      .then(
-        (result) => {
-          console.log("SUCCESS!", result.text);
-          setSendSuccess(true);
-          if (form.current) {
-            form.current.reset();
-          }
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
-          setSendSuccess(false);
-        }
-      )
-      .finally(() => {
-        setIsSending(false);
-      });
+    }, 3000);
   };
-  
+
   const handleBackToSearch = () => {
-    setServerBusyMessage(false);
     setShowMessage(false);
   };
 
-  const memoizedOriginSuggestions = useMemo(
-    () => originSuggestions,
-    [originSuggestions]
-  );
-  const memoizedDestinationSuggestions = useMemo(
-    () => destinationSuggestions,
-    [destinationSuggestions]
-  );
-
   return (
-    <div className="bg-gradient-to-r from-orange-500 to-purple-600  shadow-md">
-      <div className="bg-white w-full ">
-        <div className="bg-white py-6 px-4 rounded-lg w-full ">
-          {serverBusyMessage ? (
-            <div className="text-center text-base text-red-500">
-              <p>
-                Our servers are busy. Please call{" "}
-                <a
-                  href={`tel:${phoneNumber}`}
-                  className="inline-flex h-8 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-4 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
-                >
-                  {phoneNumber}
-                </a>{" "}
-                for assistance.
-              </p>
-              <button
-                onClick={handleBackToSearch}
-                className="mt-4 bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors duration-300"
-              >
-                Back to Search
-              </button>
+    <div className="bg-white p-3 sm:p-5 rounded-lg shadow-md">
+      {!showMessage ? (
+        <>
+          {loading ? (
+            <div className="flex items-center justify-center h-64">
+              <div className="relative">
+                <div className="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
+                <div className="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin"></div>
+              </div>
             </div>
-          ) : !showMessage ? (
-            <form ref={form} onSubmit={handleSubmit}>
-              <div className="flex flex-wrap justify-center mb-4 gap-2 sm:gap-4">
-                <button
-                  type="button"
-                  className="text-orange-500  items-center space-x-2 px-4 py-2 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 block lg:hidden"
-                >
-                  <FaPlane />
-                  <span className="text-xs">Flights</span>
-                </button>
+          ) : (
+            <form ref={form} onSubmit={handleSearch}>
+              <div className="flex flex-wrap gap-3">
+                <div className="flex flex-row mb-1">
+                  <div className="w-full md:w-auto mb-2 md:mb-0 pr-2">
+                    <label htmlFor="tripType" className="sr-only">
+                      Trip Type
+                    </label>
+                    <select
+                      id="tripType"
+                      value={tripType}
+                      name="tripType"
+                      onChange={(e) => setTripType(e.target.value)}
+                      className="w-full md:w-auto px-4 py-3 border rounded-md"
+                    >
+                      <option value="Roundtrip">Roundtrip</option>
+                      <option value="One Way">One Way</option>
+                    </select>
+                  </div>
 
-                <button
-                  type="button"
-                  className="text-orange-500 items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
-                >
-                  <FaPlane />
-                  <span>Flights</span>
-                </button>
-                <button
-                  type="button"
-                  className="text-orange-500 items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
-                >
-                  <FaHotel />
-                  <span>Hotels</span>
-                </button>
-                <button
-                  type="button"
-                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
-                >
-                  <FaCar />
-                  <span>Car Rentals</span>
-                </button>
-                <button
-                  type="button"
-                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
-                >
-                  <FaGlobe />
-                  <span>Trips</span>
-                </button>
-                <button
-                  type="button"
-                  className="text-orange-500  items-center space-x-2 px-6 py-3 rounded-lg border border-transparent hover:bg-orange-500 hover:text-white transition-colors duration-300 hidden lg:flex"
-                >
-                  <FaShip />
-                  <span>Cruises</span>
-                </button>
-                <button
-                  type="button"
-                  className="text-white items-center space-x-2 px-6 py-3 rounded-lg border border-transparent bg-orange-500 transition-colors duration-300 hidden lg:flex"
-                >
-                  <FaSwimmer />
-                  <span>Activities</span>
-                </button>
-              </div>
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 ">
-                <div className="relative">
-                  <label
-                    htmlFor="origin"
-                    className="block text-sm font-medium text-gray-700 text-center"
-                  >
-                    Origin
-                  </label>
-                  <input
-                    type="text"
-                    id="origin"
-                    name="origin"
-                    placeholder="From"
-                    value={origin}
-                    onChange={(e) =>
-                      handleInputChange(e, setOrigin, setOriginSuggestions)
-                    }
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
-                  />
-                  {memoizedOriginSuggestions.length > 0 && (
-                    <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
-                      {memoizedOriginSuggestions.map((suggestion) => (
-                        <li
-                          key={suggestion.code}
-                          onClick={() =>
-                            handleClickSuggestion(
-                              `${suggestion.name} (${suggestion.code})`,
-                              setOrigin,
-                              setOriginSuggestions
-                            )
-                          }
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                        >
-                          {suggestion.name} ({suggestion.code})
-                        </li>
+                  {/* Adults */}
+                  <div className="w-full md:w-auto mb-2 md:mb-0 pr-2">
+                    <label htmlFor="adults" className="sr-only">
+                      Adults
+                    </label>
+                    <select
+                      id="adults"
+                      value={adults}
+                      name="adults"
+                      onChange={(e) => setAdults(e.target.value)}
+                      className="w-full md:w-auto px-4 py-3 border rounded-md"
+                    >
+                      {[...Array(10).keys()].map((num) => (
+                        <option key={num + 1} value={num + 1}>
+                          {num + 1} Adult{num + 1 > 1 ? "s" : ""}
+                        </option>
                       ))}
-                    </ul>
-                  )}
+                    </select>
+                  </div>
                 </div>
+                {/* Passenger Name and Phone Number */}
+                <div className="flex flex-row md:flex-row mb-1">
+                  <div className="w-full md:w-auto mb-1 md:mb-0 pr-2">
+                    <label htmlFor="passengerName" className="sr-only">
+                      Passenger Name
+                    </label>
+                    <input
+                      id="passengerName"
+                      type="text"
+                      name="passengerName"
+                      value={passengerName}
+                      onChange={(e) => setPassengerName(e.target.value)}
+                      placeholder="Passenger Name"
+                      className="w-full md:w-auto px-2 py-3 border rounded-md"
+                    />
+                  </div>
 
-                <div className="relative">
-                  <label
-                    htmlFor="destination"
-                    className="block text-sm font-medium text-gray-700 text-center"
-                  >
-                    Destination
-                  </label>
-                  <input
-                    type="text"
-                    id="destination"
-                    name="destination"
-                    placeholder="To"
-                    value={destination}
-                    onChange={(e) =>
-                      handleInputChange(
-                        e,
-                        setDestination,
-                        setDestinationSuggestions
-                      )
-                    }
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
-                  />
-                  {memoizedDestinationSuggestions.length > 0 && (
-                    <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
-                      {memoizedDestinationSuggestions.map((suggestion) => (
-                        <li
-                          key={suggestion.code}
-                          onClick={() =>
-                            handleClickSuggestion(
-                              `${suggestion.name} (${suggestion.code})`,
-                              setDestination,
-                              setDestinationSuggestions
-                            )
-                          }
-                          className="p-2 cursor-pointer hover:bg-gray-200"
-                        >
-                          {suggestion.name} ({suggestion.code})
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-                <div>
-                  <label
-                    htmlFor="departure-date"
-                    className="block text-sm font-medium text-gray-700 text-center"
-                  >
-                    Departure Date
-                  </label>
-                  <input
-                    type="date"
-                    id="departure-date"
-                    name="departure_date"
-                    value={departureDate}
-                    onChange={(e) => setDepartureDate(e.target.value)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="return-date"
-                    className="block text-sm font-medium text-gray-700 text-center"
-                  >
-                    Return Date
-                  </label>
-                  <input
-                    type="date"
-                    id="return-date"
-                    name="return_date"
-                    value={returnDate}
-                    onChange={(e) => setReturnDate(e.target.value)}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="adults"
-                    className="block text-sm font-medium text-gray-700 text-center"
-                  >
-                    Adults
-                  </label>
-                  <input
-                    type="number"
-                    id="adults"
-                    name="adults"
-                    min="1"
-                    value={adults}
-                    onChange={(e) => setAdults(parseInt(e.target.value))}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
-                    required
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="children"
-                    className="block text-sm font-medium text-gray-700 text-center"
-                  >
-                    Children
-                  </label>
-                  <input
-                    type="number"
-                    id="children"
-                    name="children"
-                    min="0"
-                    value={children}
-                    onChange={(e) => setChildren(parseInt(e.target.value))}
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
-                  />
+                  <div className="w-full md:w-auto mb-1 md:mb-0 pr-2">
+                    <label htmlFor="phone" className="sr-only">
+                      Phone Number
+                    </label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      name="phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="Phone Number"
+                      className="w-full md:w-auto px-2 py-3 border rounded-md"
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="text-center mt-4">
-                <button
-                  type="submit"
-                  className="w-full md:w-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-4 rounded transition-colors duration-300 flex items-center justify-center"
-                  disabled={isSending}
-                >
-                  {isSending ? "Sending..." : "Search Flights"}
-                </button>
+
+              {/* Input Fields and Button */}
+
+              <div className="flex flex-col md:flex-row justify-between items-center  p-4 md:p-6">
+                {/* From and To */}
+                <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full md:w-1/2">
+                  <div className="relative flex-1 min-w-0">
+                    <label
+                      htmlFor="from"
+                      className="absolute top-1 left-1 bg-white px-1 text-sm font-bold text-black"
+                    >
+                      From
+                    </label>
+                    <input
+                      id="from"
+                      type="text"
+                      name="from"
+                      value={from}
+                      onChange={(e) =>
+                        handleInputChange(e, setFrom, setFromSuggestions)
+                      }
+                      placeholder="New York, NY"
+                      className="w-full px-4 py-8 border rounded-md"
+                    />
+                    {fromSuggestions.length > 0 && (
+                      <ul className="absolute z-50 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
+                        {fromSuggestions.map((suggestion) => (
+                          <li
+                            key={suggestion.code}
+                            onClick={() =>
+                              handleClickSuggestion(
+                                `${suggestion.name_translations.en} (${suggestion.code})`,
+                                setFrom,
+                                setFromSuggestions
+                              )
+                            }
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                          >
+                            {suggestion.name_translations.en} ({suggestion.code}
+                            )
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+
+                  <div className="relative flex-1 min-w-0">
+                    <label
+                      htmlFor="to"
+                      className="absolute top-1 left-1 bg-white px-1 text-sm font-bold text-black"
+                    >
+                      To
+                    </label>
+                    <input
+                      id="to"
+                      type="text"
+                      name="to"
+                      value={to}
+                      onChange={(e) =>
+                        handleInputChange(e, setTo, setToSuggestions)
+                      }
+                      placeholder="Miami, FL"
+                      className="w-full px-4 py-8 border rounded-md"
+                    />
+                    {toSuggestions.length > 0 && (
+                      <ul className="absolute z-50 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
+                        {toSuggestions.map((suggestion) => (
+                          <li
+                            key={suggestion.code}
+                            onClick={() =>
+                              handleClickSuggestion(
+                                `${suggestion.name_translations.en} (${suggestion.code})`,
+                                setTo,
+                                setToSuggestions
+                              )
+                            }
+                            className="p-2 cursor-pointer hover:bg-gray-200"
+                          >
+                            {suggestion.name_translations.en} ({suggestion.code}
+                            )
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+
+                {/* Date Pickers */}
+                <div className="relative flex-1 min-w-0 mt-4 md:mt-0">
+                  <label
+                    htmlFor="dates"
+                    className="absolute top-1 left-7 z-10 bg-white px-1 text-sm font-bold text-black"
+                  >
+                    Dates
+                  </label>
+                  <DatePicker
+                    id="dates"
+                    selected={startDate}
+                    onChange={(dates) => {
+                      const [start, end] = dates;
+                      setStartDate(start);
+                      setEndDate(end);
+                    }}
+                    startDate={startDate}
+                    endDate={endDate}
+                    selectsRange
+                    placeholderText="08/09/2024-08/12/2024"
+                    className="w-full px-4 py-8 border rounded-md ml-6"
+                  />
+                </div>
+
+                {/* Search Button */}
+                <div className="mt-4 md:mt-0 flex-1">
+                  <button
+                    type="submit"
+                    className="w-full px-4 py-8 bg-orange-500 hover:bg-orange-600 text-black text-lg rounded-md font-semibold"
+                  >
+                    Search Flights
+                  </button>
+                </div>
               </div>
             </form>
-          ) : (
-            <div className="text-center text-lg text-green-500">
-              {sendSuccess ? (
-                <p>Form sent successfully! We will get back to you soon.</p>
-              ) : (
-                <p>Failed to send the form. Please try again later.</p>
-              )}
-            </div>
           )}
+        </>
+      ) : (
+        <div className="text-center">
+          <p className="text-lg font-semibold text-gray-700">
+            <strong>We hit some digital turbulence!</strong> Our phone lines are
+            clear skies though.<strong>Call us</strong> for quick help with your
+            flight search and for the most up-to-date airline deals.
+          </p>
+          <p className="mt-4 ">
+            {" "}
+            <a
+              href={`tel:${phoneNumber.replace(/[^0-9]/g, "")}`}
+              className=" col-span-1 md:col-span-2 lg:col-span-6 inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50 w-full text-center"
+            >
+              {" "}
+              {phoneNumber}
+            </a>
+          </p>
+          <button
+            onClick={handleBackToSearch}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          >
+            Back to Search
+          </button>
         </div>
-      </div>
+      )}
     </div>
   );
 };
-
-export default FlightSearchForm;
+export default NewFlightSearchComp;

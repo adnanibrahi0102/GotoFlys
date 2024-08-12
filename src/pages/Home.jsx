@@ -24,7 +24,7 @@ const Home = () => {
 
       {/* Carasoul component is visible only on medium and larger screens */}
       <div className="hidden md:block">
-        <Carasoul />
+      <SupportBanner />
       </div>
 
       {/* NewFlightSearchComp component is visible at the top on mobile devices */}
@@ -39,8 +39,8 @@ const Home = () => {
       </div>
 
       {/* FlightSearchForm component is visible below the Carasoul on medium and larger screens */}
-      <div className="hidden md:block bg-gradient-to-r from-orange-500 to-purple-600 p-6">
-        <h1 className="text-center text-2xl mb-2 font-mono">Book Your Flights at Cheap Prices</h1>
+      <div className="hidden md:block bg-gradient-to-r from-orange-500 to-purple-600 p-8">
+        <h1 className="text-center text-2xl mb-4 font-mono">Book Your Flights at Cheap Prices</h1>
         <FlightSearchForm />
       </div>
 
