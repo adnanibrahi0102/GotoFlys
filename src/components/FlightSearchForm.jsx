@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import emailjs from "@emailjs/browser";
 import { phoneNumber } from "../lib/number";
-import iataData from "../lib/IATA.json";
+import iataData from "../lib/IATACODES.json";
 
 const NewFlightSearchComp = () => {
   const [tripType, setTripType] = useState("Roundtrip");
@@ -21,14 +21,22 @@ const NewFlightSearchComp = () => {
   const [loading, setLoading] = useState(false);
   const form = useRef(null);
 
+  // Convert the IATA object into an array
+  const iataArray = Object.values(iataData);
+
   // Function to filter suggestions based on query
   const filterSuggestions = (query) => {
     if (query.length < 2) {
       return [];
     }
-    return iataData.filter((item) =>
-      item.name_translations.en.toLowerCase().includes(query.toLowerCase())
-    );
+    return iataArray.filter(
+      (item) =>
+        item.name.toLowerCase().includes(query.toLowerCase()) ||
+        item.city.toLowerCase().includes(query.toLowerCase()) ||
+        item.icao.toLowerCase().includes(query.toLowerCase()) ||
+        item.tz.toLowerCase().includes(query.toLowerCase()) ||
+        item?.iata?.includes(query)
+    ).slice(0,10);
   };
 
   // Handle input change and fetch suggestions from local data
@@ -204,18 +212,19 @@ const NewFlightSearchComp = () => {
                       <ul className="absolute z-50 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
                         {fromSuggestions.map((suggestion) => (
                           <li
-                            key={suggestion.code}
+                            key={suggestion.icao}
                             onClick={() =>
                               handleClickSuggestion(
-                                `${suggestion.name_translations.en} (${suggestion.code})`,
+                                `${suggestion.name} (${
+                                  suggestion?.iata || suggestion.icao
+                                })`,
                                 setFrom,
                                 setFromSuggestions
                               )
                             }
-                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            className="p-2 cursor-pointer hover:bg-gray-200 z-10"
                           >
-                            {suggestion.name_translations.en} ({suggestion.code}
-                            )
+                            {suggestion.name} ({suggestion?.iata})
                           </li>
                         ))}
                       </ul>
@@ -240,22 +249,23 @@ const NewFlightSearchComp = () => {
                       placeholder="Miami, FL"
                       className="w-full px-4 py-8 border rounded-md"
                     />
-                    {toSuggestions.length > 0 && (
+                     {toSuggestions.length > 0 && (
                       <ul className="absolute z-50 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
                         {toSuggestions.map((suggestion) => (
                           <li
-                            key={suggestion.code}
+                            key={suggestion.icao}
                             onClick={() =>
                               handleClickSuggestion(
-                                `${suggestion.name_translations.en} (${suggestion.code})`,
+                                `${suggestion.name} (${
+                                  suggestion.icao || suggestion.icao
+                                })`,
                                 setTo,
                                 setToSuggestions
                               )
                             }
-                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            className="p-2 cursor-pointer hover:bg-gray-200 z-10"
                           >
-                            {suggestion.name_translations.en} ({suggestion.code}
-                            )
+                            {suggestion.name} ({suggestion.icao})
                           </li>
                         ))}
                       </ul>

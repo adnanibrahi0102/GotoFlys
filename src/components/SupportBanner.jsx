@@ -4,7 +4,7 @@ import { PiAirplaneTiltFill } from "react-icons/pi";
 import { IoCall } from "react-icons/io5";
 import MobileNavigation from "./Navigation/MobileNavigation";
 import HeaderForDesktop from "./Navigation/HeaderForDesktop";
-
+import { FaCalendarAlt, FaSyncAlt, FaPlaneSlash, FaDollarSign } from 'react-icons/fa';
 const SupportBanner = () => {
   return (
     <div className="relative">
@@ -93,6 +93,34 @@ const SupportBanner = () => {
           <p className="font-semibold text-base tracking-wider">| refunds</p>
         </div>
       </div>
+      {/* Bottom Text Section */}
+      <div className="bg-white py-8 shadow hidden sm:flex ">
+      <div className="container mx-auto flex justify-around items-center">
+        {/* New Bookings */}
+        <div className="flex flex-col items-center">
+          <FaCalendarAlt className="text-blue-500 w-10 h-10 mb-2" />
+          <span className="text-sm text-gray-700 font-semibold">NEW BOOKINGS</span>
+        </div>
+
+        {/* Changes */}
+        <div className="flex flex-col items-center">
+          <FaSyncAlt className="text-blue-500 w-10 h-10 mb-2" />
+          <span className="text-sm text-gray-700 font-semibold">CHANGES</span>
+        </div>
+
+        {/* Cancellations */}
+        <div className="flex flex-col items-center">
+          <FaPlaneSlash className="text-blue-500 w-10 h-10 mb-2" />
+          <span className="text-sm text-gray-700 font-semibold">CANCELLATIONS</span>
+        </div>
+
+        {/* Refunds */}
+        <div className="flex flex-col items-center">
+          <FaDollarSign className="text-blue-500 w-10 h-10 mb-2" />
+          <span className="text-sm text-gray-700 font-semibold">REFUNDS</span>
+        </div>
+      </div>
+    </div>
     </div>
   );
 };
