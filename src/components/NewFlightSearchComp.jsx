@@ -1,11 +1,9 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import DatePicker from "react-datepicker";
-import axios from "axios";
-import debounce from "lodash/debounce";
 import "react-datepicker/dist/react-datepicker.css";
 import emailjs from "@emailjs/browser";
 import { phoneNumber } from "../lib/number";
-
+import iataData from "../lib/IATA.json"; 
 
 const NewFlightSearchComp = () => {
   const [tripType, setTripType] = useState("Roundtrip");
@@ -20,53 +18,25 @@ const NewFlightSearchComp = () => {
   const [toSuggestions, setToSuggestions] = useState([]);
   const [showMessage, setShowMessage] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(null);
-  const [loading, setLoading] = useState(false); // Added loading state
+  const [loading, setLoading] = useState(false);
   const form = useRef(null);
 
-  const API_TOKEN = import.meta.env.VITE_APP_TRAVELPAYOUTS_API_TOKEN;
+  // Function to filter suggestions based on query
+  const filterSuggestions = (query) => {
+    if (query.length < 2) {
+      return [];
+    }
+    return iataData.filter(
+      (item) => item.name_translations.en.toLowerCase().includes(query.toLowerCase())
+    );
+  };
 
-  // Debounced fetchSuggestions function
-  const fetchSuggestions = useCallback(
-    debounce(async (query, setSuggestions) => {
-      console.log("Fetch Suggestions Called with Query:", query); // Log when fetchSuggestions is called
-  
-      if (query.length < 2) {
-        console.log("Query is too short, returning early."); // Log if the query is too short
-        return;
-      }
-  
-      try {
-        const response = await axios.get(
-          `https://autocomplete.travelpayouts.com/places2?term=${query}&locale=en&types[]=city&types[]=airport&types[]=country`,
-          {
-            headers: {
-              "X-Access-Token": API_TOKEN,
-            },
-          }
-        );
-        console.log("API Response:", response); // Log the API response
-  
-        setSuggestions(response.data);
-        console.log("Suggestions Updated:", response.data); // Log the updated suggestions
-      } catch (error) {
-        console.error("Error fetching suggestions:", error?.response?.data || error.message || error);
-        setSuggestions([]);
-      }
-    }, 300),
-    [API_TOKEN]
-  );
-  
-  // Handle input change and fetch suggestions
+  // Handle input change and fetch suggestions from local data
   const handleInputChange = (e, setValue, setSuggestions) => {
     const value = e.target.value;
-    console.log("Input Value:", value); // Log the value of the input
-  
     setValue(value);
-    console.log("Value set, fetching suggestions..."); // Log before calling fetchSuggestions
-  
-    fetchSuggestions(value, setSuggestions);
+    setSuggestions(filterSuggestions(value));
   };
-  
 
   const handleClickSuggestion = (value, setValue, setSuggestions) => {
     setValue(value);
@@ -85,17 +55,6 @@ const NewFlightSearchComp = () => {
 
       const formattedStartDate = formatDate(startDate);
       const formattedEndDate = formatDate(endDate);
-
-      console.log("Form Data:", {
-        tripType,
-        adults,
-        passengerName,
-        phone,
-        from,
-        to,
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
-      });
 
       emailjs
         .send(
@@ -240,20 +199,20 @@ const NewFlightSearchComp = () => {
                       className="w-full px-2 py-5 border rounded-md"
                     />
                     {fromSuggestions.length > 0 && (
-                      <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
+                      <ul className="absolute z-50 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
                         {fromSuggestions.map((suggestion) => (
                           <li
                             key={suggestion.code}
                             onClick={() =>
                               handleClickSuggestion(
-                                `${suggestion.name} (${suggestion.code})`,
+                                `${suggestion.name_translations.en} (${suggestion.code})`,
                                 setFrom,
                                 setFromSuggestions
                               )
                             }
-                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            className="p-2 cursor-pointer hover:bg-gray-200 z-10"
                           >
-                            {suggestion.name} ({suggestion.code})
+                            {suggestion.name_translations.en} ({suggestion.code})
                           </li>
                         ))}
                       </ul>
@@ -280,20 +239,20 @@ const NewFlightSearchComp = () => {
                       className="w-full px-2 py-5 border rounded-md"
                     />
                     {toSuggestions.length > 0 && (
-                      <ul className="absolute z-10 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
+                      <ul className="absolute z-50 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
                         {toSuggestions.map((suggestion) => (
                           <li
                             key={suggestion.code}
                             onClick={() =>
                               handleClickSuggestion(
-                                `${suggestion.name} (${suggestion.code})`,
+                                `${suggestion.name_translations.en} (${suggestion.code})`,
                                 setTo,
                                 setToSuggestions
                               )
                             }
-                            className="p-2 cursor-pointer hover:bg-gray-200"
+                            className="p-2 cursor-pointer hover:bg-gray-200 z-10"
                           >
-                            {suggestion.name} ({suggestion.code})
+                            {suggestion.name_translations.en} ({suggestion.code})
                           </li>
                         ))}
                       </ul>
@@ -301,7 +260,7 @@ const NewFlightSearchComp = () => {
                   </div>
                 </div>
 
-                {/* Dates */}
+                {/* Date Pickers */}
                 <div className="relative flex-1 min-w-[200px] sm:w-full md:pr-2">
                   <label
                     htmlFor="dates"
@@ -366,5 +325,4 @@ const NewFlightSearchComp = () => {
     </div>
   );
 };
-
 export default NewFlightSearchComp;
