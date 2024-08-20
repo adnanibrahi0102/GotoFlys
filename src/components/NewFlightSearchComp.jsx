@@ -80,7 +80,7 @@ const NewFlightSearchComp = () => {
             adults,
             phone,
           },
-          import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
+          // import.meta.env.VITE_APP_EMAIL_PUBLIC_KEY
         )
         .then(
           (result) => {
