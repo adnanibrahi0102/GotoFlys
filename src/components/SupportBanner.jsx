@@ -34,7 +34,7 @@ const SupportBanner = () => {
               ACCREDITED <br /> AGENCY
             </span>
             <p className=" ml-2 mr-2 text-sm leading-none text-[#139BB1]  flex items-center justify-center uppercase  ">
-              Soar Confidently with Our SKY <br />
+              Soar Confidently with Our <br />
               Accredited Travel Services
             </p>
           </div>
