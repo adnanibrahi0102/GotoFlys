@@ -19,7 +19,7 @@ const SupportBanner = () => {
         <div className="flex items-center mb-0 md:mb-0 gap-4  ">
           <PiAirplaneTiltFill className="text-2xl md:text-3xl ml-1 md:mr-7  mt-4 text-[#003876] text-center" />
           <div className="flex gap-6 items-center justify-between w-full">
-            <h2 className="text-xl md:text-3xl font-bold mt-1 text-[#003876] text-center  w-full ">
+            <h2 className="text-xl md:text-3xl font-bold mt-1 text-[#003876] text-center tracking-widest  w-full ">
               Airline Service Desk
             </h2>
             <MobileNavigation />
@@ -33,7 +33,7 @@ const SupportBanner = () => {
             <span className="text-white text-center bg-[#139BB1] text-xs py-1 px-1 ">
               ACCREDITED <br /> AGENCY
             </span>
-            <p className=" ml-2 mr-2 text-sm leading-none text-[#139BB1]  flex items-center justify-center uppercase  ">
+            <p className=" ml-2 mr-2 text-xs leading-none text-[#139BB1]  flex items-center justify-center uppercase  ">
               Soar Confidently with Our <br />
               Accredited Travel Services
             </p>
