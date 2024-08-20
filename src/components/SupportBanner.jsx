@@ -58,10 +58,10 @@ const SupportBanner = () => {
         >
           <div className="absolute inset-0 bg-black opacity-50"></div>
           <div className="relative z-10 text-left">
-            <h1 className="text-6xl headingFont mb-2 mt-4 ml-6 tracking-widest">
+            <h1 className="text-6xl text-[#003876] headingFont mb-2 mt-4 ml-6 tracking-widest">
               24/7 Airline <br /> Reservations &<br /> Support Desk
             </h1>
-            <p className="text-4xl mb-4 ml-6 headingFont mt-4">
+            <p className="text-4xl text-[#003876] mb-4 ml-6 headingFont mt-4">
               We’ll beat any online ticket price.
             </p>
             <a
