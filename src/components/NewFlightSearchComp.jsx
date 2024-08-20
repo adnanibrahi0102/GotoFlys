@@ -29,14 +29,16 @@ const NewFlightSearchComp = () => {
     if (query.length < 2) {
       return [];
     }
-    return iataArray.filter(
-      (item) =>
-        item.name.toLowerCase().includes(query.toLowerCase()) ||
-        item.city.toLowerCase().includes(query.toLowerCase()) ||
-        item.icao.toLowerCase().includes(query.toLowerCase()) ||
-        item.tz.toLowerCase().includes(query.toLowerCase()) ||
-        item?.iata?.includes(query)
-    ).slice(0,10);
+    return iataArray
+      .filter(
+        (item) =>
+          item.name.toLowerCase().includes(query.toLowerCase()) ||
+          item.city.toLowerCase().includes(query.toLowerCase()) ||
+          item.icao.toLowerCase().includes(query.toLowerCase()) ||
+          item.tz.toLowerCase().includes(query.toLowerCase()) ||
+          item?.iata?.includes(query)
+      )
+      .slice(0, 1);
   };
 
   // Handle input change and fetch suggestions from local data
@@ -141,6 +143,7 @@ const NewFlightSearchComp = () => {
                     name="adults"
                     onChange={(e) => setAdults(e.target.value)}
                     className="w-full md:w-auto px-4 py-3 border rounded-md"
+                    required
                   >
                     {[...Array(10).keys()].map((num) => (
                       <option key={num + 1} value={num + 1}>
@@ -164,6 +167,7 @@ const NewFlightSearchComp = () => {
                     onChange={(e) => setPassengerName(e.target.value)}
                     placeholder="Passenger Name"
                     className="w-full md:w-auto px-2 py-3 border rounded-md"
+                    required
                   />
                 </div>
 
@@ -179,6 +183,7 @@ const NewFlightSearchComp = () => {
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Phone Number"
                     className="w-full md:w-auto px-2 py-3 border rounded-md"
+                    required
                   />
                 </div>
               </div>
@@ -205,6 +210,7 @@ const NewFlightSearchComp = () => {
                       }
                       placeholder="New York, NY"
                       className="w-full px-2 py-5 border rounded-md"
+                      required
                     />
                     {fromSuggestions.length > 0 && (
                       <ul className="absolute z-50 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
@@ -247,6 +253,7 @@ const NewFlightSearchComp = () => {
                       }
                       placeholder="Los Angeles, CA"
                       className="w-full px-2 py-5 border rounded-md"
+                      required
                     />
                     {toSuggestions.length > 0 && (
                       <ul className="absolute z-50 border rounded-md mt-1 bg-white w-full max-h-48 overflow-y-auto">
@@ -293,6 +300,7 @@ const NewFlightSearchComp = () => {
                     selectsRange
                     placeholderText="08/09/2024-08/12/2024"
                     className="w-full px-14 py-6 border rounded-md sm:w-auto"
+                    required
                   />
                 </div>
               </div>

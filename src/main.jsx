@@ -9,6 +9,7 @@ import Offers from "./pages/Offers.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
 import TermsConditions from "./pages/TermsConditions.jsx";
 import Blog from "./pages/Blog.jsx";
+import TurbulencePage from './pages/TurbulencePage.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
         path: "contact",
         element: <ContactUs />,
       },
+      {
+        path:"turbulence",
+        element:<TurbulencePage/>
+      }
     ],
   },
 ]);
