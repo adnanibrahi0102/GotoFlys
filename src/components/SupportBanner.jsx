@@ -17,7 +17,7 @@ const SupportBanner = () => {
       <HeaderForDesktop />
       <div className="bg-white text-black text-center flex flex-col md:flex-row justify-around mt-12 md:mt-0 md:hidden">
         <div className="flex items-center mb-0 md:mb-0 gap-4  ">
-          <PiAirplaneTiltFill className="text-2xl md:text-3xl ml-1 md:mr-7  mt-4 text-[#003876] text-center" />
+          <PiAirplaneTiltFill className="text-2xl md:text-3xl ml-1 md:mr-7  mt-2 text-[#003876] text-center" />
           <div className="flex gap-6 items-center justify-between w-full">
             <h2 className="text-xl md:text-3xl font-bold mt-1 text-[#003876] text-center tracking-widest  w-full ">
               Airline Service Desk
