@@ -8,7 +8,7 @@ const CallToActionBanner = () => {
   return (
     <a
       href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`}
-      className="fixed bottom-0 inset-x-0 bg-[#003876] text-center p-2 flex items-center justify-center border border-orange-800  m-3 md:hidden rounded-md z-40  "
+      className="fixed bottom-0 inset-x-0 bg-[#003876] text-center p-2 flex items-center justify-center   m-3 md:hidden rounded-md z-40  "
     >
       <div className="flex items-center">
         <motion.div
