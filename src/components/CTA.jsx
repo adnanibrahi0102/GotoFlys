@@ -55,7 +55,7 @@ const CTA = () => {
               <div className="flex justify-center mt-4">
                 <a
                   href={`tel:${item.phoneNumber}`}
-                  className="inline-flex items-center justify-center h-12 px-6 font-medium text-white bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] rounded-lg border border-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
+                  className="inline-flex items-center justify-center h-12 px-6 font-medium text-white bg-[#3375CB] hover:bg-[#003876] rounded-lg border border-purple-800 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50"
                 >
                   Book Now...
                 </a>

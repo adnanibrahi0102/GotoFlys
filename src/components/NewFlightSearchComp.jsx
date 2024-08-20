@@ -103,19 +103,16 @@ const NewFlightSearchComp = () => {
   };
 
   return (
-    <div className="bg-white p-3 sm:p-5 rounded-lg shadow-md">
+    <div className="bg-white  p-3 sm:p-5 rounded-lg shadow-md">
       {!showMessage ? (
         <>
           {loading ? (
-            <div className="flex items-center justify-center h-64">
-              <div className="relative">
-                <div className="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
-                <div className="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin"></div>
-              </div>
+            <div className="  flex p-4  justify-center items-center h-[50vh]">
+              <img class="w-20 h-20 animate-spin  " src="https://www.svgrepo.com/show/199956/loading-loader.svg" alt="Loading icon"/>
             </div>
           ) : (
-            <form ref={form} onSubmit={handleSearch}>
-              <div className="flex flex-row mb-1">
+            <form ref={form} onSubmit={handleSearch} >
+              <div className="flex flex-row mb-1 ">
                 <div className="w-full md:w-auto mb-2 md:mb-0 pr-2">
                   <label htmlFor="tripType" className="sr-only">
                     Trip Type
@@ -310,7 +307,7 @@ const NewFlightSearchComp = () => {
               <div className="flex-1 min-w-[200px] mt-1 md:mt-0">
                 <button
                   type="submit"
-                  className="w-full px-4 py-3 md:py-7 bg-orange-500 hover:bg-orange-600 text-black text-lg md:text-2xl rounded-md font-semibold"
+                  className="w-full px-4 py-3 md:py-7 bg-[#3375CB] hover:bg-[#003876] text-white text-lg md:text-2xl rounded-md font-bold"
                 >
                   Search flights
                 </button>
@@ -329,7 +326,7 @@ const NewFlightSearchComp = () => {
             {" "}
             <a
               href={`tel:${phoneNumber.replace(/[^0-9]/g, "")}`}
-              className=" col-span-1 md:col-span-2 lg:col-span-6 inline-flex h-12 animate-shimmer items-center justify-center rounded-md border border-purple-800 bg-[linear-gradient(110deg,#6a0dad,45%,#dc143c,55%,#6a0dad)] bg-[length:200%_100%] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50 w-full text-center"
+              className=" col-span-1 md:col-span-2 lg:col-span-6 inline-flex h-12 animate-shimmer items-center justify-center rounded-md bg-[#3375CB] hover:bg-[#003876] px-6 font-medium text-white transition-colors focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2 focus:ring-offset-purple-50 w-full text-center"
             >
               {" "}
               {phoneNumber}

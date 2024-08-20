@@ -11,7 +11,7 @@ const Offers = ({ title, image, price, stars, description }) => (
       </div>
       <p className="text-gray-800 text-lg font-medium mb-2">${price} per night</p>
       <p className="text-gray-700 mb-4">{description}</p>
-      <button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-purple-700 transition">
+      <button className="bg-[#3375CB] hover:bg-[#003876] text-white px-4 py-2 rounded-lg  transition">
         Read More
       </button>
     </div>

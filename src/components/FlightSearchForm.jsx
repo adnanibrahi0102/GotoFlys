@@ -300,7 +300,7 @@ const NewFlightSearchComp = () => {
               <div className="mt-4 md:mt-0 flex-1">
                 <button
                   type="submit"
-                  className="w-full px-4 py-8 bg-orange-500 hover:bg-orange-600 text-black text-lg rounded-md font-semibold"
+                  className="w-full px-4 py-8 bg-[#3375CB] hover:bg-[#003876] text-white text-lg rounded-md font-bold"
                 >
                   Search Flights
                 </button>

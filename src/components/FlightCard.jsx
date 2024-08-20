@@ -6,16 +6,16 @@ const FlightCard = ({ airlineLogo, route, dateRange, price }) => (
     <div className="flex items-center space-x-2">
       <img src={airlineLogo} alt="Airline Logo" className="h-8 w-8 object-contain" />
       <div>
-        <div className="text-sm font-bold text-orange-600">{route}</div>
+        <div className="text-sm font-bold text-black">{route}</div>
         <div className="text-gray-500 text-xs">{dateRange}</div>
       </div>
     </div>
     <div className="text-right">
       <div className="text-gray-500 text-xs">From</div>
-      <div className="text-sm font-bold text-orange-600">{price}</div>
+      <div className="text-sm font-bold text-black">{price}</div>
       <a 
         href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`}
-        className="px-2 py-1 mt-1 text-xs bg-orange-500 text-white rounded-md"
+        className="px-2 py-1 mt-1 text-xs bg-[#3375CB] hover:bg-[#003876] text-white rounded-md"
       >
         Book Now
       </a>
