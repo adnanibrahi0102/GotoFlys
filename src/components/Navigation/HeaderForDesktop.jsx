@@ -61,7 +61,7 @@ const HeaderForDesktop = () => {
           </div>
 
           {/* Slogan */}
-          <span className="text-xl font-serif text-[#139BB1]">
+          <span className="text-xl font-serif text-[#139BB1] uppercase">
             SOAR CONFIDENTLY WITH OUR SKY <br />
             ACCREDITED TRAVEL SERVICES <br />
           </span>

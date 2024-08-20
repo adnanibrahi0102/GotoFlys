@@ -30,10 +30,10 @@ const SupportBanner = () => {
             <div className="flex items-center bg-white border-2 border-[#139BB1] px-4 py-2 ">
               <span className="text-[#139BB1] font-bold text-sm ">SKY</span>
             </div>
-            <span className="text-white text-center bg-[#139BB1] px-1 text-sm ">
+            <span className="text-white text-center bg-[#139BB1] text-xs py-1 px-1 ">
               ACCREDITED <br /> AGENCY
             </span>
-            <p className=" ml-3 text-sm leading-none text-[#139BB1]  flex items-center justify-center  ">
+            <p className=" ml-2 mr-2 text-sm leading-none text-[#139BB1]  flex items-center justify-center uppercase  ">
               Soar Confidently with Our SKY <br />
               Accredited Travel Services
             </p>

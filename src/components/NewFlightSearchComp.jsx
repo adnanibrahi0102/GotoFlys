@@ -226,7 +226,7 @@ const NewFlightSearchComp = () => {
                                 setFromSuggestions
                               )
                             }
-                            className="p-2 cursor-pointer hover:bg-gray-200 z-10"
+                            className="p-2 cursor-pointer hover:bg-[#12172A] hover:text-white z-10"
                           >
                             {suggestion.name} ({suggestion?.iata})
                           </li>
@@ -269,7 +269,7 @@ const NewFlightSearchComp = () => {
                                 setToSuggestions
                               )
                             }
-                            className="p-2 cursor-pointer hover:bg-gray-200 z-10"
+                            className="p-2 cursor-pointer hover:bg-[#12172A] hover:text-white z-10"
                           >
                             {suggestion.name} ({suggestion.icao})
                           </li>
