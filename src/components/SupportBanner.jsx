@@ -115,10 +115,10 @@ const SupportBanner = () => {
 
       {/* Text Section for Mobile */}
       <div className="md:hidden text-left p-6 bg-white text-black">
-        <h1 className="text-3xl text-[#003876] md:text-4xl lg:text-5xl headingFont mb-2">
+        <h1 className="text-3xl text-[#0561AA] md:text-4xl lg:text-5xl headingFont mb-2">
           24/7 Airline <br /> Reservations &<br /> Support Desk
         </h1>
-        <p className="text-xl text-[#003876] md:text-xl mb-4 headingFont mt-4">
+        <p className="text-xl text-[#0561AA] md:text-xl mb-4 headingFont mt-4">
           We’ll beat any online ticket price.
         </p>
         <a
