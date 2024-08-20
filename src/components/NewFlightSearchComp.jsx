@@ -58,7 +58,6 @@ const NewFlightSearchComp = () => {
   const handleSearch = (event) => {
     event.preventDefault();
     setLoading(true);
-    window.scrollTo(0, 0);
 
     setTimeout(() => {
       setLoading(false);
