@@ -10,6 +10,7 @@ import ContactUs from "./pages/ContactUs.jsx";
 import TermsConditions from "./pages/TermsConditions.jsx";
 import Blog from "./pages/Blog.jsx";
 import TurbulencePage from './pages/TurbulencePage.jsx'
+import GoogleTag from "./components/GoogleTag.js";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <GoogleTag />  {/* Google Tag Manager */}
     <RouterProvider router={router} />
   </React.StrictMode>
 );

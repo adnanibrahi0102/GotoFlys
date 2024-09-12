@@ -1,14 +1,14 @@
 import React from 'react';
 import { MdOutlineWifiCalling3 } from 'react-icons/md';
 import { motion } from 'framer-motion';
-import { phoneNumber } from '../lib/number';
 
 const CallToActionBanner = () => {
+  const phoneNumber = '(833) 368-6811';
 
   return (
     <a
       href={`tel:${phoneNumber.replace(/[^0-9]/g, '')}`}
-      className="fixed bottom-0 inset-x-0 bg-[#003876] text-center p-2 flex items-center justify-center   m-3 md:hidden rounded-md z-40  "
+      className="fixed bottom-0 inset-x-0 bg-[#003876] text-center p-2 flex items-center justify-center m-3 md:hidden rounded-md z-40"
     >
       <div className="flex items-center">
         <motion.div
@@ -19,7 +19,7 @@ const CallToActionBanner = () => {
           <MdOutlineWifiCalling3 className="w-5 h-5 text-black" />
         </motion.div>
         <div className="ml-3">
-          <p className=" text-sm font-normal text-white">Call & Get Unpublished Flight Deals!</p>
+          <p className="text-sm font-normal text-white">Call & Get Unpublished Flight Deals!</p>
           <p className="font-bold text-lg text-white">{phoneNumber}</p>
         </div>
       </div>
